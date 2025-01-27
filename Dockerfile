@@ -1,20 +1,15 @@
-FROM node:22.11.0-slim
-
-# Create app directory
+FROM node:18-slim
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Install dependencies
 COPY package*.json ./
+RUN npm install
 
-# Install Yarn
-RUN npm install -g yarn | true
-
-# Install dependencies for the monorepo
+# Copy source code
 COPY . .
-RUN yarn install
 
-# Expose port 3000
 EXPOSE 3000
+ENV PORT 3000
+ENV NODE_ENV development
 
-# Start the app
-CMD yarn web
+CMD ["npm", "run", "dev"]
