@@ -14,6 +14,20 @@ pnpm dev
 bun dev
 ```
 
+## To run it with docker
+
+Build docker image.
+
+```bash
+docker build -t instient-client .
+```
+
+Run docker image
+
+```bash
+docker run -d --name instient-dev-0 -p 3000:3000 instient-client
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
