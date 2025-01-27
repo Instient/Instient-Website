@@ -29,9 +29,7 @@ const routes = [
   },
 ];
 
-interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function Navbar({ className, ...props }: NavbarProps) {
+export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
