@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Footer } from "@/components/ui/footer";
@@ -53,11 +54,13 @@ export default function Services() {
                 <CardContent>
                   <p className="text-2xl py-3 font-ubuntu font-extralight">Website <br /> Development</p>
                 </CardContent>
-                <CardFooter className="flex justify-end sm:py-6 pb-6">
-                  <Button className="text-black border-black  rounded-full flex items-center font-ubuntu gap-2">
-                      <ArrowRight className="w-4 h-4" />
-                    </Button>
-                </CardFooter>
+                 <CardFooter className="flex justify-end sm:py-6 pb-6">
+                    <Link href="/services/website-development">
+                      <Button className="text-black border-black rounded-full flex items-center font-ubuntu gap-2">
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    </Link>
+                 </CardFooter>
               </Card>
             </div>
 

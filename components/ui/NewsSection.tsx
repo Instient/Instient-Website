@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
@@ -46,12 +47,14 @@ export function NewsSection() {
                 <p className="text-sm">{newsItem.date}</p>
               </div>
               <div className="mt-3 sm:mt-0 sm:ml-auto">
+                <Link href="/news/nextjs-vs-reactnavtive">
                 <Button
                   size="sm"
                   className="rounded-full border-black border-2 text-black font-ubuntu bg-white"
                 >
                   Read More <ArrowRight className="w-4 h-4" />
                 </Button>
+                </Link>
               </div>
             </div>
           ))}

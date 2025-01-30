@@ -17,7 +17,8 @@ export default function Contact() {
         </div>
     </div>
     <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-32 sm:mt-24 sm:w-[60%]">
-      <p className="text-2xl px-6 font-ubuntu">Thank you for your interest in Instient. Whether you're a client, prospective team member, journalist, analyst, or investor, we've made it easy for you to connect with us. Find the most convenient way to reach out below.</p>
+    <p className="text-2xl px-6 font-ubuntu sm:hidden">Instient sits at the nexus of innovation and technology. Explore our take on the happenings in the industry.</p>
+    <p className="text-2xl px-6 font-ubuntu hidden sm:block">Thank you for your interest in Instient. Whether you're a client, prospective team member, journalist, analyst, or investor, we've made it easy for you to connect with us. Find the most convenient way to reach out below.</p>
     </div>
 
     <div className="px-6 py-4 mt-10 sm:mt-10">
