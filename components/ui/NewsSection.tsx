@@ -1,35 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-const newsData = [
-  {
-    title: "2025 Vietnam Investor Exposition",
-    date: "Jan 21,2025",
-    head: "-- Case Study",
-  },
-  {
-    title: "NextJS vs. React Native",
-    date: "Jan 21, 2025",
-    head: "-- Case Study",
-  },
-  {
-    title: "Heat Fleet Launch",
-    date: "Jan 26, 2025",
-    head: "-- Case Study",
-  },
-  {
-    title: "Health Sector Witnesses Major Breakthrough",
-    date: "Jan 25, 2025",
-    head: "-- Case Study",
-  },
-];
-
 export function NewsSection() {
+  const [newsData, setNewsData] = useState([]);
   const [visibleNews, setVisibleNews] = useState(3);
+  const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
+
+  useEffect(() => {
+    const myHeaders = new Headers();
+    myHeaders.append(
+      "Authorization",
+      `Bearer ${apiToken}`
+    );
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:1337/api/news-instients", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        setNewsData(result.data);
+      })
+      .catch((error) => console.error("Error fetching news data:", error));
+  }, []);
 
   const handleShowMore = () => {
     setVisibleNews(newsData.length);
@@ -39,21 +39,24 @@ export function NewsSection() {
     <div>
       <section className="px-4 py-4">
         <div className="space-y-6">
-          {newsData.slice(0, visibleNews).map((newsItem, index) => (
-            <div key={index} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border-t border-gray-300 font-ubuntu">
+          {newsData.slice(0, visibleNews).map((newsItem) => (
+            <div
+              key={newsItem.id}
+              className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border-t border-gray-300 font-ubuntu"
+            >
               <div>
-                <p className="text-sm mb-2">{newsItem.head}</p>
-                <h3 className="text-xl font-semibold mb-3">{newsItem.title}</h3>
-                <p className="text-sm">{newsItem.date}</p>
+                <p className="text-sm mb-2">{newsItem.header}</p>
+                <h3 className="text-xl font-semibold mb-3">{newsItem.Title}</h3>
+                <p className="text-sm mb-2">{newsItem.publish_date}</p>
               </div>
               <div className="mt-3 sm:mt-0 sm:ml-auto">
-                <Link href="/news/nextjs-vs-reactnavtive">
-                <Button
-                  size="sm"
-                  className="rounded-full border-black border-2 text-black font-ubuntu bg-white"
-                >
-                  Read More <ArrowRight className="w-4 h-4" />
-                </Button>
+                <Link href={`/news/${newsItem.slug}`}>
+                  <Button
+                    size="sm"
+                    className="rounded-full border-black border-2 text-black font-ubuntu bg-white"
+                  >
+                    Read More <ArrowRight className="w-4 h-4" />
+                  </Button>
                 </Link>
               </div>
             </div>
@@ -70,8 +73,7 @@ export function NewsSection() {
           )}
         </div>
       </section>
-   </div>
-  
+    </div>
   );
 }
 

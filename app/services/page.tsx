@@ -39,9 +39,11 @@ export default function Services() {
                   <p className="text-2xl py-3 font-ubuntu font-extralight">Mobile App <br/> Development</p>
                 </CardContent>
                 <CardFooter className="flex justify-end sm:py-6 pb-6">
+                  <Link href="/services/mobile-app-development">
                   <Button className="text-black border-black  rounded-full flex items-center font-ubuntu gap-2">
                      <ArrowRight className="w-4 h-4" />
                   </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </div>
@@ -73,9 +75,11 @@ export default function Services() {
                   <p className="text-2xl py-3 font-ubuntu font-extralight">Cloud + <br/> DevOps</p>
                 </CardContent>
                 <CardFooter className="flex justify-end sm:py-6 pb-6">
+                  <Link href="/services/cloud+devops">
                   <Button className="text-black border-black  rounded-full flex items-center font-ubuntu gap-2">
                       <ArrowRight className="w-4 h-4" />
                   </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </div>
@@ -98,9 +102,11 @@ export default function Services() {
                 <p className="text-2xl py-3 font-ubuntu font-extralight">QA | Automated + Manual</p>
               </CardContent>
               <CardFooter className="flex justify-end sm:py-6 pb-6">
+                 <Link href="/services/QA">
                   <Button className="text-black  rounded-full flex items-center font-ubuntu gap-2">
                      <ArrowRight className="w-4 h-4" />
                   </Button>
+                  </Link>
               </CardFooter>
             </Card>
           </div>
@@ -114,9 +120,11 @@ export default function Services() {
                 <p className="text-2xl py-3 font-ubuntu font-extralight">3D Rendering + Animation</p>
               </CardContent>
               <CardFooter className="flex justify-end sm:py-6 pb-6">
-                <Button className="text-black rounded-full flex items-center font-ubuntu gap-2">
-                     <ArrowRight className="w-4 h-4" />
-                  </Button>
+               <Link href="/services/3d-rendering">
+                  <Button className="text-black rounded-full flex items-center font-ubuntu gap-2">
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                </Link>
               </CardFooter>
             </Card>
           </div>
