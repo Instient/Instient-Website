@@ -21,7 +21,7 @@ export default function Home() {
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
-        const response = await fetch("http://localhost:1337/api/homepage", {
+        const response = await fetch("https://dev-api.instient.com/api/homepage", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           },

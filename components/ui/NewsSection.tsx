@@ -23,7 +23,7 @@ export function NewsSection() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:1337/api/news-instients", requestOptions)
+    fetch("https://dev-api.instient.com/api/news-instients", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setNewsData(result.data);

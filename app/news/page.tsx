@@ -14,7 +14,7 @@ export default function News() {
   useEffect(() => {
     const fetchNewsData = async () => {
       try {
-        const response = await fetch("http://localhost:1337/api/newspage", {
+        const response = await fetch("https://dev-api.instient.com/api/newspage", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           }

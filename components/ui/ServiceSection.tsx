@@ -14,7 +14,7 @@ export function ServiceSection() {
   useEffect(() => {
     async function fetchServices() {
       try {
-        const response = await fetch("http://localhost:1337/api/service-instients", {
+        const response = await fetch("https://dev-api.instient.com/api/service-instients", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           },

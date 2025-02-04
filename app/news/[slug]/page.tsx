@@ -5,7 +5,7 @@ async function fetchNewsData(slug: string) {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
   
   const response = await fetch(
-    `http://localhost:1337/api/news-instients?filters[slug][$eq]=${slug}`, 
+    `https://ldev-api.instient.com/api/news-instients?filters[slug][$eq]=${slug}`, 
     {
       headers: {
         Authorization: `Bearer ${apiToken}`,

@@ -5,7 +5,7 @@ async function fetchServiceData(slug: string) {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   const response = await fetch(
-    `http://localhost:1337/api/service-instients?filters[slug][$eq]=${slug}`,
+    `https://dev-api.instient.com/api/service-instients?filters[slug][$eq]=${slug}`,
     {
       headers: {
         Authorization: `Bearer ${apiToken}`,

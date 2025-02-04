@@ -17,7 +17,7 @@ export default function Contact() {
   useEffect(() => {
     const fetchContactData = async () => {
       try {
-        const response = await fetch("http://localhost:1337/api/contactpage", {
+        const response = await fetch("https://dev-api.instient.com/api/contactpage", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           },
