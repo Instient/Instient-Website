@@ -19,8 +19,10 @@ async function fetchServiceData(slug: string) {
 }
 
 export default async function ServiceSlugPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-  const serviceData = await fetchServiceData(slug);
+  
+  const { slug } = await params; // Ensure `params` is awaited
+
+  const serviceData  = await fetchServiceData(slug);
 
   if (!serviceData) {
     return <p className="text-center mt-20">Service not found or incomplete data.</p>;
@@ -30,22 +32,16 @@ export default async function ServiceSlugPage({ params }: { params: { slug: stri
     Service_Title,
     Service_Description,
     Service_Content1_Title,
-    Service_Content1_Card1_Title,
-    Service_Content1_Card1_Description,
-    Service_Content1_Card2_Title,
-    Service_Content1_Card2_Description,
-    Service_Content1_Card3_Title,
-    Service_Content1_Card3_Description,
     Service_Content2_Title,
     Service_Content2_Description,
     Service_Content3_Title,
-    Service_Content3_Card1_Title,
-    Service_Content3_Card1_Description,
-    Service_Content3_Card1_Content,
-    Service_Content3_Card2_Title,
-    Service_Content3_Card2_Description,
-    Service_Content3_Card2_Content,
+    ...contentData
   } = serviceData.attributes || serviceData;
+
+  const content1Cards = extractCardData(contentData, "Service_Content1_Card");
+  const processDetails = extractCardData(contentData, "Service_Content3_Card");
+
+  
 
   return (
     <main>
@@ -63,14 +59,7 @@ export default async function ServiceSlugPage({ params }: { params: { slug: stri
         <p className="text-2xl px-6 font-ubuntu">{Service_Description}</p>
       </div>
 
-      <WhatMakesUsStandOut
-        title={Service_Content1_Title}
-        cards={[
-          { title: Service_Content1_Card1_Title, content: Service_Content1_Card1_Description },
-          { title: Service_Content1_Card2_Title, content: Service_Content1_Card2_Description },
-          { title: Service_Content1_Card3_Title, content: Service_Content1_Card3_Description },
-        ]}
-      />
+      <WhatMakesUsStandOut title={Service_Content1_Title} cards={content1Cards} />
 
       <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-10 mb-10">
         <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">{Service_Content2_Title}</h2>
@@ -79,39 +68,42 @@ export default async function ServiceSlugPage({ params }: { params: { slug: stri
         </div>
       </div>
 
-      <OurProcess
-        title={Service_Content3_Title}
-        processDetails={[
-          { title: Service_Content3_Card1_Title, description: Service_Content3_Card1_Description, content: Service_Content3_Card1_Content },
-          { title: Service_Content3_Card2_Title, description: Service_Content3_Card2_Description, content: Service_Content3_Card2_Content },
-        ]}
-      />
+      <OurProcess title={Service_Content3_Title} processDetails={processDetails} />
 
       <Footer />
     </main>
   );
 }
 
-function WhatMakesUsStandOut({ title, cards }) {
-    return (
-      <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-16 mb-10">
-        <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">{title}</h2>
-  
-        <div className={`grid gap-10 mt-8 grid-cols-1 ${cards.length >= 2 ? 'sm:grid-cols-2' : ''} ${cards.length >= 3 ? 'lg:grid-cols-3' : ''}`}>
-          {cards.filter(card => card.title && card.content).map((card, index) => (
-            <Card key={index} className="py-4 shadow-xl rounded-lg bg-white border-white p-6 w-[95%] sm:w-[100%] mx-auto">
-              <h3 className="font-ubuntu text-xl font-semibold mb-2 mt-2">{card.title}</h3>
-              <div className="border-b-4 border-blue-500 w-12 mb-4"></div>
-              <CardContent className="text-black font-ubuntu text-base p-0">{card.content}</CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-    );
-  }
-  
+interface WhatMakesUsStandOutProps {
+  title: string;
+  cards: Array<{ title: string; content: string; description?: string }>;
+}
 
-function OurProcess({ title, processDetails }) {
+function WhatMakesUsStandOut({ title, cards }: WhatMakesUsStandOutProps) {
+  return (
+    <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-16 mb-10">
+      <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">{title}</h2>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-8">
+        {cards.map((card, index) => (
+          <Card key={index} className="py-4 shadow-xl rounded-lg bg-white border-white p-6 w-[95%] sm:w-[100%] mx-auto">
+            <h3 className="font-ubuntu text-xl font-semibold mb-2 mt-2">{card.title}</h3>
+            <div className="border-b-4 border-blue-500 w-12 mb-4"></div>
+            <CardContent className="text-black font-ubuntu text-base p-0">{card.content}</CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+interface OurProcessProps {
+  title: string;
+  processDetails: Array<{ title: string; content: string; description: string }>;
+}
+
+function OurProcess({ title, processDetails }: OurProcessProps) {
   return (
     <div className="px-6 py-4 mt-10 sm:mt-10 sm:mb-10">
       <h2 className="text-3xl font-ubuntu font-medium px-4 sm:text-left sm:px-6 sm:mb-6 mb-4">{title}</h2>
@@ -127,4 +119,27 @@ function OurProcess({ title, processDetails }) {
       </div>
     </div>
   );
+}
+
+interface CardData {
+  title: string;
+  content: string;
+  description: string; // Ensure this is no longer optional
+}
+
+
+function extractCardData(data: Record<string, any>, keyPrefix: string): CardData[] {
+  const cards: CardData[] = [];
+  let index = 1;
+
+  while (data[`${keyPrefix}${index}_Title`]) {
+    cards.push({
+      title: data[`${keyPrefix}${index}_Title`],
+      content: data[`${keyPrefix}${index}_Description`] || "",
+      description: data[`${keyPrefix}${index}_Content`] || "",
+    });
+    index++;
+  }
+
+  return cards;
 }

@@ -6,8 +6,14 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Card, CardContent, CardFooter } from "./card";
 
+interface ServiceItem {
+  id: number;
+  Service_Title: string;
+  slug: string;
+}
+
 export function ServiceSection() {
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState<ServiceItem[]>([]);
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   // Fetch service data from API
@@ -37,8 +43,7 @@ export function ServiceSection() {
   }, []);
 
   return (
-    <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-16 mb-10">
-      <h2 className="text-3xl font-ubuntu sm:text-left px-6 sm:mb-16">Explore Our Services</h2>
+    
 
       <div className="py-10 font-ubuntu relative sm:mt-0">
         <div className="flex flex-wrap justify-center sm:justify-start gap-28 mt-16 sm:mt-0">
@@ -66,7 +71,6 @@ export function ServiceSection() {
           ))}
         </div>
       </div>
-    </div>
   );
 }
 

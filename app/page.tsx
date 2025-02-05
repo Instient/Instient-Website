@@ -12,9 +12,22 @@ import { Footer } from "@/components/ui/footer";
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
-export default function Home() {
-  const [homeData, setHomeData] = useState(null);
+interface HomeData {
+  Card_Header: string;
+  Card_Title: string;
+  Card_Content: string;
+  Card_Button: string;
+  Content_Header: string;
+  Content_Title: string;
+  Content_Text: string;
+  Content_Button: string;
+  Page_Button: string;
+}
+
+  export default function Home() {
+    const [homeData, setHomeData] = useState<HomeData | null>(null);
   const pathname = usePathname();
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
@@ -61,9 +74,11 @@ export default function Home() {
                 <p className="text-xl font-thin">{homeData.Card_Content}</p>
               </CardContent>
               <CardFooter className="flex justify-end">
-                <Button className="bg-transparent rounded-full border-2 flex items-center gap-2">
-                  Discover more <ArrowRight className="w-4 h-4" />
-                </Button>
+                <Link href="/news/heat-fleet-launch">
+                  <Button className="bg-transparent rounded-full border-2 flex items-center gap-2">
+                    {homeData.Card_Button} <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
           </div>
@@ -86,9 +101,11 @@ export default function Home() {
                   </p>
                 </CardContent>
                 <CardFooter className="flex justify-end py-6">
+                <Link href="/news/2025-vietnam-investor-exposition">
                   <Button className="text-black border-black border-2 rounded-full flex items-center font-ubuntu gap-2">
-                    Read more <ArrowRight className="w-4 h-4" />
+                    {homeData.Content_Button} <ArrowRight className="w-4 h-4" />
                   </Button>
+                </Link>
                 </CardFooter>
               </Card>
             </div>
@@ -96,9 +113,11 @@ export default function Home() {
             <div className="absolute top-[40%] sm:top-1/2 left-1/2 sm:left-[72%] w-full sm:w-[807px] h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"></div>
           </div>
           <div className="sm:px-10">
+            <Link href="/news">
             <Button className="text-black border-black border-2 rounded-full flex items-center font-ubuntu gap-2">
-              See all news <ArrowRight className="w-4 h-4" />
+              {homeData.Page_Button} <ArrowRight className="w-4 h-4" />
             </Button>
+            </Link>
           </div>
         </div>
       </main>
