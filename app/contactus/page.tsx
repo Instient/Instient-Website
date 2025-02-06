@@ -9,8 +9,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+interface ContactData {
+  Title: string;
+  Description_mobile: string;
+  Description_web: string;
+  Bottom_Title: string;
+  Bottom_Description: string;
+  Bottom_Link: string;
+  Bottom_Button: string;
+}
+
 export default function Contact() {
-  const [contactData, setContactData] = useState(null);
+  const [contactData, setContactData] = useState<ContactData | null>(null);
   const pathname = usePathname();
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
@@ -36,7 +46,16 @@ export default function Contact() {
   }, [pathname]);
 
   if (!contactData) {
-    return <p>Loading...</p>;
+    return (
+         // Loading spinner
+      <div className="flex justify-center items-center w-full h-screen">
+        <div className="flex flex-row gap-2">
+          <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
+          <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
+          <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
+        </div>
+      </div>
+    );
   }
 
 

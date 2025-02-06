@@ -10,13 +10,14 @@ export function Footer() {
         <div className="container mx-auto flex flex-col lg:flex-row justify-start lg:justify-between items-start">
           <div>
             <Image
-              src="/Instient.png" // Adjust the logo file name and path if needed
-              alt="Logo"            
+              src="/Instient.webp"
+              alt="Logo"
               width={150}
               height={150}
               className="mx-auto mt-2 mb-4 lg:mx-0"
             />
           </div>
+
 
           {/* List Container with Vertical Stacking for Mobile */}
           <div className="flex flex-col lg:flex-row mt-10 lg:mt-0">

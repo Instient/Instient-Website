@@ -51,12 +51,21 @@ export default function About() {
     }, [pathname]);
   
     if (!aboutData) {
-      return <p>Loading...</p>;
+      return (
+           // Loading spinner
+        <div className="flex justify-center items-center w-full h-screen">
+          <div className="flex flex-row gap-2">
+            <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
+            <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
+            <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
+          </div>
+        </div>
+      );
     }
 
   return (
     <main>
-    <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu bg-[url('/Careers.png')] bg-cover bg-center ">
+    <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu bg-[url('/Careers.webp')] bg-cover bg-center ">
         <div className="my-64 sm:my-64 ">
           <Card className="lg:w-[600px] sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu opacity-95">
             <CardContent>

@@ -46,10 +46,11 @@ export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElem
           {/* Logo Section */}
           <Link href="/" className="flex items-center space-x-4 px-4">
             <Image
-              src="/Instient.png" // Adjust the logo file name and path if needed
+              src="/Instient.webp" // Adjust the logo file name and path if needed
               alt="Logo"
               width={100} // Adjust width
               height={50} // Adjust height
+              priority
             />
           </Link>
 
