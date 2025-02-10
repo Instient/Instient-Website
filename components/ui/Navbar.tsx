@@ -16,6 +16,10 @@ const routes = [
     href: "/services",
   },
   {
+    name: "Case Studies",
+    href: "/casestudies",
+  },
+  {
     name: "Careers",
     href: "/careers",
   },

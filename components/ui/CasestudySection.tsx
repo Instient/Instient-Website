@@ -5,26 +5,22 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-interface NewsItem {
-  id: string;
-  header: string;
-  Title: string;
-  publish_date: string;
-  slug: string;
-}
+interface CaseStudy {
+    id: string;
+    header: string;
+    Title: string;
+    publish_date: string;
+    slug: string;
+  }
 
-
-export function NewsSection() {
-  const [newsData, setNewsData] = useState<NewsItem[]>([]);
-  const [visibleNews, setVisibleNews] = useState(3);
+export function CaseStudySection() {
+  const [caseStudyData, setCaseStudyData] = useState<CaseStudy[]>([]);
+  const [visibleCaseStudies, setVisibleCaseStudies] = useState(3);
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   useEffect(() => {
     const myHeaders = new Headers();
-    myHeaders.append(
-      "Authorization",
-      `Bearer ${apiToken}`
-    );
+    myHeaders.append("Authorization", `Bearer ${apiToken}`);
 
     const requestOptions = {
       method: "GET",
@@ -32,34 +28,34 @@ export function NewsSection() {
       redirect: "follow" as RequestRedirect,
     };
 
-    fetch("https://dev-api.instient.com/api/news-instients", requestOptions)
+    fetch("https://dev-api.instient.com/api/casestudies", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        setNewsData(result.data);
+        setCaseStudyData(result.data);
       })
-      .catch((error) => console.error("Error fetching news data:", error));
+      .catch((error) => console.error("Error fetching case study data:", error));
   }, []);
 
   const handleShowMore = () => {
-    setVisibleNews(newsData.length);
+    setVisibleCaseStudies(caseStudyData.length);
   };
 
   return (
     <div>
       <section className="px-4 py-4">
         <div className="space-y-6">
-          {newsData.slice(0, visibleNews).map((newsItem) => (
+          {caseStudyData.slice(0, visibleCaseStudies).map((caseStudyItem) => (
             <div
-              key={newsItem.id}
+              key={caseStudyItem.id}
               className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border-t border-gray-300 font-ubuntu"
             >
               <div>
-                <p className="text-sm mb-2">{newsItem.header}</p>
-                <h3 className="text-xl font-semibold mb-3">{newsItem.Title}</h3>
-                <p className="text-sm mb-2">{newsItem.publish_date}</p>
+                <p className="text-sm mb-2">{caseStudyItem.header}</p>
+                <h3 className="text-xl font-semibold mb-3">{caseStudyItem.Title}</h3>
+                <p className="text-sm mb-2">{caseStudyItem.publish_date}</p>
               </div>
               <div className="mt-3 sm:mt-0 sm:ml-auto">
-                <Link href={`/news/${newsItem.slug}`}>
+                <Link href={`/casestudies/${caseStudyItem.slug}`}>
                   <Button
                     size="sm"
                     className="rounded-full border-black border-2 text-black font-ubuntu bg-white"
@@ -70,13 +66,13 @@ export function NewsSection() {
               </div>
             </div>
           ))}
-          {visibleNews < newsData.length && (
+          {visibleCaseStudies < caseStudyData.length && (
             <div className="text-center mt-6">
               <Button
                 onClick={handleShowMore}
                 className="rounded-full border-black border-2 text-black font-ubuntu bg-white"
               >
-                Show More news
+                Show More Case Studies
               </Button>
             </div>
           )}
@@ -86,4 +82,4 @@ export function NewsSection() {
   );
 }
 
-export default NewsSection;
+export default CaseStudySection;

@@ -110,7 +110,7 @@ interface HomeData {
                   </p>
                 </CardContent>
                 <CardFooter className="flex justify-end py-6">
-                <Link href="/news/2025-vietnam-investor-exposition">
+                <Link href="/news/2024-vietnam-investor-exposition">
                   <Button className="text-black border-black border-2 rounded-full flex items-center font-ubuntu gap-2">
                     {homeData.Content_Button} <ArrowRight className="w-4 h-4" />
                   </Button>

@@ -6,6 +6,7 @@ import { Footer } from "@/components/ui/footer";
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface AboutData {
   Title: string;
@@ -131,9 +132,11 @@ export default function About() {
                 <p className="text-2xl py-3 font-ubuntu font-extralight">{aboutData.Content3_Card1}</p>
               </CardContent>
               <CardFooter className="flex justify-end py-6">
+                <Link href="/aboutus/management-&-governance">
                 <Button className="text-black border-black rounded-full flex items-center font-ubuntu gap-2">
                    <ArrowRight className="w-4 h-4" />
                 </Button>
+                </Link>
               </CardFooter>
             </Card>
           </div>
@@ -145,9 +148,11 @@ export default function About() {
                 <p className="text-2xl py-3 font-ubuntu font-extralight">{aboutData.Content3_Card2}</p>
               </CardContent>
               <CardFooter className="flex justify-end py-6">
-                <Button className="text-black border-black rounded-full flex items-center font-ubuntu gap-2">
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
+                <Link href="/aboutus/who-we-are">
+                  <Button className="text-black border-black rounded-full flex items-center font-ubuntu gap-2">
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                </Link>
               </CardFooter>
             </Card>
           </div>
@@ -159,9 +164,11 @@ export default function About() {
                 <p className="text-2xl py-3 font-ubuntu font-extralight">{aboutData.Content3_Card3}</p>
               </CardContent>
               <CardFooter className="flex justify-end py-6">
-                <Button className="text-black border-black rounded-full flex items-center font-ubuntu gap-2">
-                    <ArrowRight className="w-4 h-4" />
-                </Button>
+                <Link href="/aboutus/technology-partners">
+                  <Button className="text-black border-black rounded-full flex items-center font-ubuntu gap-2">
+                      <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
           </div>
