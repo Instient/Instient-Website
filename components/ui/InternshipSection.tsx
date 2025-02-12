@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Link from "next/link";
 
@@ -12,6 +11,7 @@ interface Internship {
   location: string;
   Description: string;
   type: string;
+  slug: string;
 }
 
 export function InternshipSection() {
@@ -28,10 +28,10 @@ export function InternshipSection() {
       redirect: "follow" as RequestRedirect,
     };
 
-    fetch("https://dev-api.instient.com/api/internships", requestOptions) // Assuming the internships API endpoint is similar
+    fetch("https://dev-api.instient.com/api/internships", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        setInternshipData(result.data); // Adjust based on your API response structure
+        setInternshipData(result.data);
       })
       .catch((error) => console.error("Error fetching internship openings:", error));
   }, [apiToken]);
@@ -57,6 +57,13 @@ export function InternshipSection() {
                 <p className="mt-4 text-base font-ubuntu">{internship.Description}</p>
                 <p className="mt-4 text-sm font-ubuntu text-blue-600">Type: {internship.type}</p>
               </CardContent>
+              <CardFooter className="flex justify-end sm:py-6 pb-6">
+                <Link href={`internships/${internship.slug}`}>
+                  <Button variant="default" className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700">
+                    View Internship
+                  </Button>
+                </Link>
+              </CardFooter>
             </Card>
           </div>
         ))}

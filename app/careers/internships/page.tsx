@@ -4,12 +4,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Footer } from "@/components/ui/footer";
 import { InternshipSection } from "@/components/ui/InternshipSection";
 import { useEffect, useState } from "react";
+import Image from 'next/image'; // Importing Image
 
 interface InternshipPageData {
   Title: string;
   header: string;
   Description: string;
   Content_Title: string;
+  Image: {
+    url: string;
+  };
 }
 
 export default function InternshipPage() {
@@ -19,7 +23,7 @@ export default function InternshipPage() {
   useEffect(() => {
     const fetchInternshipData = async () => {
       try {
-        const response = await fetch("https://dev-api.instient.com/api/internshipspage", {
+        const response = await fetch("https://dev-api.instient.com/api/internshipspage?populate=*", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           },
@@ -51,7 +55,15 @@ export default function InternshipPage() {
 
   return (
     <main>
-      <div className="w-full h-[425px] sm:h-[450px] bg-gray-200 p-6 font-ubuntu">
+      <div className="w-full h-[425px] sm:h-[450px] bg-gray-200 p-6 font-ubuntu relative">
+          <Image
+                src={`https://dev-api.instient.com${internshipData.Image.url}`} // Dynamically set the full image URL from the API
+                alt="Career Image"
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover object-center -z-10"
+          />
         <div className="my-64 sm:my-64">
           <Card className="lg:w-[600px] sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu">
             <CardHeader>

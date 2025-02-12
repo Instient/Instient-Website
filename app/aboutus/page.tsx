@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 interface AboutData {
   Title: string;
@@ -22,6 +23,9 @@ interface AboutData {
   Content3_Card1: string;
   Content3_Card2: string;
   Content3_Card3: string;
+  Image: {
+    url: string;
+  };
 }
 
 export default function About() {
@@ -33,7 +37,7 @@ export default function About() {
     useEffect(() => {
       const fetchAboutData = async () => {
         try {
-          const response = await fetch("https://dev-api.instient.com/api/aboutpage", {
+          const response = await fetch("https://dev-api.instient.com/api/aboutpage?populate=*", {
             headers: {
               Authorization: `Bearer ${apiToken}`,
             },
@@ -66,15 +70,27 @@ export default function About() {
 
   return (
     <main>
-    <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu bg-[url('/Careers.webp')] bg-cover bg-center ">
-        <div className="my-64 sm:my-64 ">
+      <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu relative">
+        {/* Background Image */}
+        <Image
+          src={`https://dev-api.instient.com${aboutData.Image.url}`} // Dynamically set the full image URL from the API
+          alt="About Us Image"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center -z-10"
+        />
+
+        {/* Content */}
+        <div className="my-64 sm:my-64 relative z-10">
           <Card className="lg:w-[600px] sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu opacity-95">
             <CardContent>
               <p className="text-4xl py-24 sm:py-20 font-ubuntu font-medium">{aboutData.Title}</p>
             </CardContent>
           </Card>
         </div>
-    </div>
+      </div>
+
     <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-32 sm:mt-24 sm:w-[60%]">
       <p className="text-2xl px-6 font-ubuntu">{aboutData.Description}</p>
     </div>

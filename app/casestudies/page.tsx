@@ -5,11 +5,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Footer } from "@/components/ui/footer";
 import CaseStudySection from "@/components/ui/CasestudySection";
 import { usePathname } from 'next/navigation';
+import Image from "next/image";
 
 interface CaseStudyData {
   Title: string;
   Description: string;
   Content_Header: string;
+  Image: {
+    url: string;
+  };
 }
 
 export default function CaseStudies() {
@@ -20,7 +24,7 @@ export default function CaseStudies() {
   useEffect(() => {
     const fetchCaseStudyData = async () => {
       try {
-        const response = await fetch("https://dev-api.instient.com/api/casestudypage", {
+        const response = await fetch("https://dev-api.instient.com/api/casestudypage?populate=*", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           }
@@ -53,7 +57,20 @@ export default function CaseStudies() {
 
   return (
     <main>
-      <div className="w-full h-[425px] sm:h-[450px] bg-gray-200 p-6 font-ubuntu ">
+
+
+      <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu relative">
+        {/* Background Image */}
+        <Image 
+          src={`https://dev-api.instient.com${caseStudyData.Image.url}`} // Dynamically set the full image URL from the API
+          alt="Career Image"
+          fill
+          priority
+          sizes="100vw"
+          className="-z-10 object-cover"
+        />
+
+        {/* Content */}
         <div className="my-64 sm:my-64">
           <Card className="lg:w-[600px] sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu">
             <CardContent>
@@ -64,6 +81,7 @@ export default function CaseStudies() {
           </Card>
         </div>
       </div>
+
       <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-32 sm:mt-24 sm:w-[60%]">
         <p className="text-2xl px-6 font-ubuntu">
           {caseStudyData.Description}

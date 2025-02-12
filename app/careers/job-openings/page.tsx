@@ -4,11 +4,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Footer } from "@/components/ui/footer";
 import { JobOpeningSection } from "@/components/ui/jobopeningsection";
 import { useEffect, useState } from "react";
+import Image from 'next/image'; // Importing Image
 
 interface JobPageData {
   Title: string;
   Description: string;
   Content_Title: string;
+  Image: {
+    url: string;
+  };
 }
 
 export default function JobOpeningsPage() {
@@ -18,7 +22,7 @@ export default function JobOpeningsPage() {
   useEffect(() => {
     const fetchJobData = async () => {
       try {
-        const response = await fetch("https://dev-api.instient.com/api/jobopeningpage", {
+        const response = await fetch("https://dev-api.instient.com/api/jobopeningpage?populate=*", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           },
@@ -27,14 +31,16 @@ export default function JobOpeningsPage() {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
+        console.log("Job Data Response:", data); // Debugging
         setJobData(data.data);
       } catch (error) {
         console.error("Failed to fetch job data:", error);
       }
     };
-
+  
     fetchJobData();
   }, []);
+  
 
   if (!jobData) {
     return (
@@ -50,7 +56,15 @@ export default function JobOpeningsPage() {
 
   return (
     <main>
-      <div className="w-full h-[425px] sm:h-[450px] bg-gray-200 p-6 font-ubuntu">
+      <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu relative">
+          <Image
+            src={`https://dev-api.instient.com${jobData.Image.url}`} // Dynamically set the full image URL from the API
+            alt="Career Image"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center -z-10"
+          />
         <div className="my-64 sm:my-64">
           <Card className="lg:w-[600px] sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu">
             <CardHeader>

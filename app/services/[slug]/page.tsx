@@ -1,11 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Footer } from "@/components/ui/footer";
+import Image from 'next/image'; // Importing Image
 
 async function fetchServiceData(slug: string) {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   const response = await fetch(
-    `https://dev-api.instient.com/api/service-instients?filters[slug][$eq]=${slug}`,
+    `https://dev-api.instient.com/api/service-instients?filters[slug][$eq]=${slug}&populate=*`,
     {
       headers: {
         Authorization: `Bearer ${apiToken}`,
@@ -19,8 +20,7 @@ async function fetchServiceData(slug: string) {
 }
 
 export default async function ServiceSlugPage({ params }: { params: { slug: string } }) {
-  
-  const { slug } = await params; // Ensure `params` is awaited
+  const { slug } = await params;
 
   const serviceData  = await fetchServiceData(slug);
 
@@ -35,18 +35,34 @@ export default async function ServiceSlugPage({ params }: { params: { slug: stri
     Service_Content2_Title,
     Service_Content2_Description,
     Service_Content3_Title,
+    Service_Thumbnail: { url } = {}, // Assuming you have an image field
     ...contentData
   } = serviceData.attributes || serviceData;
 
   const content1Cards = extractCardData(contentData, "Service_Content1_Card");
   const processDetails = extractCardData(contentData, "Service_Content3_Card");
 
+
+
   
 
   return (
     <main>
-      <div className="w-full h-[425px] sm:h-[450px] bg-gray-200 p-6 font-ubuntu">
-        <div className="my-64 sm:my-64">
+      <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu relative">
+        {/* Image Component Replacing Background */}
+
+        
+        <Image
+          src={url ? `https://dev-api.instient.com${url}` : '/default-image.png'} // Use default image if url is undefined
+          alt="Career Image"
+          fill
+          priority
+          sizes="100vw"
+          className="-z-10 object-cover"
+        />
+
+
+        <div className="my-64 sm:my-64 relative z-10">
           <Card className="lg:w-[600px] sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu">
             <CardContent>
               <p className="text-4xl py-24 sm:py-20 font-ubuntu font-medium">{Service_Title}</p>
@@ -124,9 +140,8 @@ function OurProcess({ title, processDetails }: OurProcessProps) {
 interface CardData {
   title: string;
   content: string;
-  description: string; // Ensure this is no longer optional
+  description: string;
 }
-
 
 function extractCardData(data: Record<string, any>, keyPrefix: string): CardData[] {
   const cards: CardData[] = [];

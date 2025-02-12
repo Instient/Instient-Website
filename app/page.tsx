@@ -13,28 +13,33 @@ import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 interface HomeData {
   Card_Header: string;
   Card_Title: string;
   Card_Content: string;
   Card_Button: string;
+  Card_link: string;
   Content_Header: string;
   Content_Title: string;
   Content_Text: string;
   Content_Button: string;
   Page_Button: string;
+  Image: {
+    url: string;
+  };
 }
 
-  export default function Home() {
-    const [homeData, setHomeData] = useState<HomeData | null>(null);
+export default function Home() {
+  const [homeData, setHomeData] = useState<HomeData | null>(null);
   const pathname = usePathname();
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
-        const response = await fetch("https://dev-api.instient.com/api/homepage", {
+        const response = await fetch("https://dev-api.instient.com/api/homepage?populate=*", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           },
@@ -54,7 +59,7 @@ interface HomeData {
 
   if (!homeData) {
     return (
-         // Loading spinner
+      // Loading spinner
       <div className="flex justify-center items-center w-full h-screen">
         <div className="flex flex-row gap-2">
           <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
@@ -68,8 +73,20 @@ interface HomeData {
   return (
     <>
       <main>
-        <div className="w-full h-[425px] sm:h-[670px] p-6 bg-gray-200 font-ubuntu">
-          <div className="flex my-64 sm:my-64 ">
+        <div className="w-full h-[425px] sm:h-[670px] p-6 font-ubuntu relative">
+          {/* Background Image */}
+          <Image
+            src={`https://dev-api.instient.com${homeData.Image.url}`} // Dynamically set the full image URL from the API
+            alt="Career Image"
+            fill
+            priority
+            sizes="100vw"
+            className="-z-10 object-cover"
+          />
+
+
+          {/* Content */}
+          <div className="flex my-64 sm:my-64">
             <Card className="w-full sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#215E92] text-white">
               <CardHeader>
                 <CardTitle className="text-base font-light">
@@ -83,7 +100,7 @@ interface HomeData {
                 <p className="text-xl font-thin">{homeData.Card_Content}</p>
               </CardContent>
               <CardFooter className="flex justify-end">
-                <Link href="/news/heat-fleet-launch">
+                <Link href={`/news/${homeData.Card_link}`}>
                   <Button className="bg-transparent rounded-full border-2 flex items-center gap-2">
                     {homeData.Card_Button} <ArrowRight className="w-4 h-4" />
                   </Button>
@@ -110,11 +127,11 @@ interface HomeData {
                   </p>
                 </CardContent>
                 <CardFooter className="flex justify-end py-6">
-                <Link href="/news/2024-vietnam-investor-exposition">
-                  <Button className="text-black border-black border-2 rounded-full flex items-center font-ubuntu gap-2">
-                    {homeData.Content_Button} <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
+                  <Link href="/news/2024-vietnam-investor-exposition">
+                    <Button className="text-black border-black border-2 rounded-full flex items-center font-ubuntu gap-2">
+                      {homeData.Content_Button} <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </div>
@@ -123,9 +140,9 @@ interface HomeData {
           </div>
           <div className="sm:px-10">
             <Link href="/news">
-            <Button className="text-black border-black border-2 rounded-full flex items-center font-ubuntu gap-2">
-              {homeData.Page_Button} <ArrowRight className="w-4 h-4" />
-            </Button>
+              <Button className="text-black border-black border-2 rounded-full flex items-center font-ubuntu gap-2">
+                {homeData.Page_Button} <ArrowRight className="w-4 h-4" />
+              </Button>
             </Link>
           </div>
         </div>

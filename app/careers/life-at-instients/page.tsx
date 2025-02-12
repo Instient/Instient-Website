@@ -1,11 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Footer } from "@/components/ui/footer";
+import Image from 'next/image'; // Importing Image
 
 async function fetchLifeAtInstientPageData() {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   const response = await fetch(
-    `https://dev-api.instient.com/api/lifeatinstient`, 
+    `https://dev-api.instient.com/api/lifeatinstient?populate=*`, 
     {
       headers: {
         Authorization: `Bearer ${apiToken}`,
@@ -29,11 +30,19 @@ export default async function LifeAtInstientPage() {
   }
 
   // Destructure attributes safely
-  const { Title, header, Description, content1, content1_answer, content2, content2_answer, conclusion } = lifeAtInstientData;
+  const { Title, header, Description, content1, content1_answer, content2, content2_answer, conclusion, Image: { url } = {}, } = lifeAtInstientData;
 
   return (
     <main>
-      <div className="w-full h-[425px] sm:h-[450px] bg-gray-200 p-6 font-ubuntu">
+      <div className="w-full h-[425px] sm:h-[450px]  p-6 font-ubuntu relative">
+        <Image
+                        src={`https://dev-api.instient.com${url}`} // Dynamically set the full image URL from the API
+                        alt="Career Image"
+                        fill
+                        priority
+                        sizes="100vw"
+                        className="object-cover object-center -z-10"
+                  />
         <div className="my-64 sm:my-64">
           <Card className="lg:w-[600px] sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu">
             <CardHeader>

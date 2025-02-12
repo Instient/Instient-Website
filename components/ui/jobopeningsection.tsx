@@ -1,8 +1,5 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Link from "next/link";
 
@@ -12,6 +9,7 @@ interface JobOpening {
   location: string;
   Description: string;
   type: string;
+  slug: string;
 }
 
 export function JobOpeningSection() {
@@ -31,7 +29,7 @@ export function JobOpeningSection() {
     fetch("https://dev-api.instient.com/api/jobopenings", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        setJobOpeningsData(result.data); // Adjust based on your API response structure
+        setJobOpeningsData(result.data);
       })
       .catch((error) => console.error("Error fetching job openings:", error));
   }, [apiToken]);
@@ -58,6 +56,11 @@ export function JobOpeningSection() {
                 <p className="mt-4 text-sm font-ubuntu text-blue-600">Type: {job.type}</p>
               </CardContent>
               <CardFooter className="flex justify-end sm:py-6 pb-6">
+                <Link href={`job-openings/${job.slug}`}>
+                  <Button variant="default" className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700">
+                    View Job
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
           </div>
