@@ -29,7 +29,7 @@ export function Footer() {
         <div className="container mx-auto flex flex-col lg:flex-row justify-start lg:justify-between items-start">
           <div>
             <Image
-              src="/Instient.webp"
+              src="/Instient Logo.svg"
               alt="Logo"
               width={150}
               height={150}

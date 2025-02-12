@@ -42,7 +42,7 @@ export default async function LifeAtInstientPage() {
                         priority
                         sizes="100vw"
                         className="object-cover object-center -z-10"
-                  />
+        />
         <div className="my-64 sm:my-64">
           <Card className="lg:w-[600px] sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu">
             <CardHeader>

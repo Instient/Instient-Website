@@ -1,11 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Footer } from "@/components/ui/footer";
+import Image from 'next/image'; // Importing Image
 
 async function fetchPrivacyNoticePageData() {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   const response = await fetch(
-    `https://dev-api.instient.com/api/privacynoticepage`, 
+    `https://dev-api.instient.com/api/privacynoticepage?populate=*`, 
     {
       headers: {
         Authorization: `Bearer ${apiToken}`,
@@ -29,11 +30,19 @@ export default async function PrivacyNoticePage() {
   }
 
   // Destructure attributes safely
-  const { Title, header, Description, content1, content1_answer, content2, content2_answer, conclusion } = privacyNoticeData;
+  const { Title, header, Description, content1, content1_answer, content2, content2_answer, conclusion, Image: { url } = {},   } = privacyNoticeData;
 
   return (
     <main>
-      <div className="w-full h-[425px] sm:h-[450px] bg-gray-200 p-6 font-ubuntu ">
+      <div className="w-full h-[425px] sm:h-[450px]  p-6 font-ubuntu relative ">
+          <Image
+            src={url ? `https://dev-api.instient.com${url}` : '/default-image.png'} // Use default image if url is undefined
+            alt="Background Image"
+            fill
+            priority
+            sizes="100vw"
+            className="-z-10 object-cover" // Ensuring the image covers the background and stays behind content
+          />
         <div className="my-64 sm:my-64">
           <Card className="lg:w-[600px] sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu">
             <CardHeader>

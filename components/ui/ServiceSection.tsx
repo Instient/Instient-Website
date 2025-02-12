@@ -5,11 +5,15 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Card, CardContent, CardFooter } from "./card";
+import Image from 'next/image'; // Importing Image
 
 interface ServiceItem {
   id: number;
   Service_Title: string;
   slug: string;
+  Image_Card: {
+    url: string;
+};
 }
 
 export function ServiceSection() {
@@ -20,7 +24,7 @@ export function ServiceSection() {
   useEffect(() => {
     async function fetchServices() {
       try {
-        const response = await fetch("https://dev-api.instient.com/api/service-instients", {
+        const response = await fetch("https://dev-api.instient.com/api/service-instients?populate=*", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           },
@@ -50,7 +54,13 @@ export function ServiceSection() {
           {services.map((service) => (
             <div key={service.id} className="relative mb-14 sm:mb-14 w-full sm:w-[407px]">
               {/* Background Underlap */}
-              <div className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"></div>
+               <Image
+                  src={`https://dev-api.instient.com${service.Image_Card.url}`} // Assuming item has BackgroundImage property
+                  alt="Career Background"
+                  className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"
+                  width={407} // Adjust based on your design
+                  height={300} // Adjust based on your design
+                />
 
               {/* Card Component */}
               <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-16 w-[90%] mx-auto">

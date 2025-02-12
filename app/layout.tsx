@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/ui/Navbar";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +29,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-       <Navbar /> {/* Include the Navbar here */}
-       <main>{children}</main> {/* Render page content here */}
+        {/* Navbar remains at the top */}
+        <Navbar />
+
+        {/* Sticky Breadcrumb that replaces Navbar on scroll */}
+        <div className="sticky top-0 left-0 right-0 z-50">
+          <Breadcrumb />
+        </div>
+
+        {/* Main content should touch the Navbar */}
+        <main className="relative mt-0">{children}</main>
       </body>
     </html>
   );

@@ -55,7 +55,7 @@ export default function InternshipPage() {
 
   return (
     <main>
-      <div className="w-full h-[425px] sm:h-[450px] bg-gray-200 p-6 font-ubuntu relative">
+      <div className="w-full h-[425px] sm:h-[450px]  p-6 font-ubuntu relative">
           <Image
                 src={`https://dev-api.instient.com${internshipData.Image.url}`} // Dynamically set the full image URL from the API
                 alt="Career Image"

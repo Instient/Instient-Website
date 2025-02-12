@@ -26,6 +26,18 @@ interface AboutData {
   Image: {
     url: string;
   };
+  Content_Image: {
+    url: string;
+  };
+  Card1_Image: {
+    url: string;
+  };
+  Card2_Image: {
+    url: string;
+  };
+  Card3_Image: {
+    url: string;
+  };
 }
 
 export default function About() {
@@ -108,7 +120,13 @@ export default function About() {
               </Card>
             </div>
 
-            <div className="absolute top-[35%] sm:top-1/2 left-1/2 sm:left-[72%] w-full sm:w-[807px] h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"></div>
+            <Image
+              src={`https://dev-api.instient.com${aboutData.Content_Image.url}`}
+              alt="Career Image"
+              width={807} // Set a fixed width
+              height={300} // Set a fixed height
+              className="absolute top-[40%] sm:top-1/2 left-1/2 sm:left-[72%] w-full sm:w-[807px] h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"
+            />
           </div>
     </div>
 
@@ -142,7 +160,13 @@ export default function About() {
       <div className="py-10 font-ubuntu relative sm:mt-0">
         <div className="flex flex-col sm:flex-row justify-between sm:justify-start items-center relative z-10 mt-24 sm:mt-0 gap-32">
           <div className="relative w-[90%] sm:w-[407px]">
-            <div className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"></div>
+              <Image
+                src={`https://dev-api.instient.com${aboutData.Card1_Image.url}`} // Assuming item has BackgroundImage property
+                alt="Career Background"
+                className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"
+                width={407} // Adjust based on your design
+                height={300} // Adjust based on your design
+              />
             <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-16 w-[90%] mx-auto">
               <CardContent>
                 <p className="text-2xl py-3 font-ubuntu font-extralight">{aboutData.Content3_Card1}</p>
@@ -158,7 +182,13 @@ export default function About() {
           </div>
 
           <div className="relative w-[90%] sm:w-[407px]">
-            <div className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"></div>
+             <Image
+                src={`https://dev-api.instient.com${aboutData.Card2_Image.url}`} // Assuming item has BackgroundImage property
+                alt="Career Background"
+                className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"
+                width={407} // Adjust based on your design
+                height={300} // Adjust based on your design
+              />
             <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-16 w-[90%] mx-auto">
               <CardContent>
                 <p className="text-2xl py-3 font-ubuntu font-extralight">{aboutData.Content3_Card2}</p>
@@ -174,7 +204,13 @@ export default function About() {
           </div>
 
           <div className="relative w-[90%] sm:w-[407px]">
-            <div className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"></div>
+              <Image
+                src={`https://dev-api.instient.com${aboutData.Card3_Image.url}`} // Assuming item has BackgroundImage property
+                alt="Career Background"
+                className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"
+                width={407} // Adjust based on your design
+                height={300} // Adjust based on your design
+              />
             <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-16 w-[90%] mx-auto">
               <CardContent>
                 <p className="text-2xl py-3 font-ubuntu font-extralight">{aboutData.Content3_Card3}</p>

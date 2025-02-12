@@ -29,6 +29,9 @@ interface HomeData {
   Image: {
     url: string;
   };
+  Content_Image: {
+    url: string;
+  };
 }
 
 export default function Home() {
@@ -116,8 +119,8 @@ export default function Home() {
           </h2>
 
           <div className="pt-20 pb-10 font-ubuntu relative sm:mt-0">
-            <div className="flex flex-col sm:flex-row justify-between items-center relative z-10 mt-24 sm:mt-0 ">
-              <Card className="w-[90%] sm:w-[757px] sm:p-4 p-2 shadow-xl rounded-lg bg-white ">
+            <div className="flex flex-col sm:flex-row justify-between items-center relative z-10 mt-24 sm:mt-0">
+              <Card className="w-[90%] sm:w-[757px] sm:p-4 p-2 shadow-xl rounded-lg bg-white">
                 <CardContent>
                   <p className="text-2xl py-3 font-ubuntu font-extralight">
                     {homeData.Content_Title}
@@ -136,8 +139,16 @@ export default function Home() {
               </Card>
             </div>
 
-            <div className="absolute top-[40%] sm:top-1/2 left-1/2 sm:left-[72%] w-full sm:w-[807px] h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"></div>
+            <Image
+                src={`https://dev-api.instient.com${homeData.Content_Image.url}`}
+                alt="Career Image"
+                width={807} // Set a fixed width
+                height={300} // Set a fixed height
+                className="absolute top-[40%] sm:top-1/2 left-1/2 sm:left-[72%] w-full sm:w-[807px] h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"
+            />
+
           </div>
+
           <div className="sm:px-10">
             <Link href="/news">
               <Button className="text-black border-black border-2 rounded-full flex items-center font-ubuntu gap-2">
