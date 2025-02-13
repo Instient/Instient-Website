@@ -38,7 +38,7 @@ export default async function JobOpeningSlugPage({ params }: { params: { slug: s
     responsibilty,
     skills,
     Qulaification,
-    Image: { url } = {},
+    Image_Thumbnail: { url } = {},
   } = jobData;
 
   return (

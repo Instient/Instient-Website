@@ -38,7 +38,7 @@ export default async function InternshipSlugPage({ params }: { params: { slug: s
     responsibilty,
     skills,
     Qulaification,
-    Image: { url } = {},
+    Image_Thumbnail: { url } = {},
   } = internshipData;
 
   return (

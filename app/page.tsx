@@ -77,41 +77,43 @@ export default function Home() {
     <>
       <main>
         <div className="w-full h-[425px] sm:h-[670px] p-6 font-ubuntu relative">
-          {/* Background Image */}
-          <Image
-            src={`https://dev-api.instient.com${homeData.Image.url}`} // Dynamically set the full image URL from the API
-            alt="Career Image"
-            fill
-            priority
-            sizes="100vw"
-            className="-z-10 object-cover"
-          />
+            {/* Background Video */}
+            <video
+              src="/Instient_Video.webm" // Video file from the public folder
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute top-0 left-0 w-full h-full object-cover -z-10"
+            ></video>
 
+            {/* Dark overlay for text readability */}
+            <div className="absolute top-0 left-0 w-full h-full bg-black/50 -z-10"></div>
 
-          {/* Content */}
-          <div className="flex my-64 sm:my-64">
-            <Card className="w-full sm:w-[650px] border-0 bg-gradient-to-b from-[#3c83c1] to-[#215E92] text-white">
-              <CardHeader>
-                <CardTitle className="text-base font-light">
-                  {homeData.Card_Header}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl py-3 font-semibold">
-                  {homeData.Card_Title}
-                </p>
-                <p className="text-xl font-thin">{homeData.Card_Content}</p>
-              </CardContent>
-              <CardFooter className="flex justify-end">
-                <Link href={`/news/${homeData.Card_link}`}>
-                  <Button className="bg-transparent rounded-full  border-[1.5px] flex items-center p-5 gap-2">
-                    {homeData.Card_Button} <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
-              </CardFooter>
-            </Card>
-          </div>
+            {/* Content (Card remains in original position) */}
+            <div className="flex my-64 sm:my-64">
+              <Card className="w-full sm:w-[650px] border-0 bg-gradient-to-b from-[#3c83c1] to-[#215E92] text-white shadow-lg">
+                <CardHeader>
+                  <CardTitle className="text-base font-light">
+                    {homeData.Card_Header}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-4xl py-3 font-semibold">{homeData.Card_Title}</p>
+                  <p className="text-xl font-thin">{homeData.Card_Content}</p>
+                </CardContent>
+                <CardFooter className="flex justify-end">
+                  <Link href={`/news/${homeData.Card_link}`}>
+                    <Button className="bg-transparent rounded-full border-[1.5px] flex items-center p-5 gap-2">
+                      {homeData.Card_Button} <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            </div>
         </div>
+
+
 
         <div className="px-6 py-4 mt-44 sm:mt-10 mb-10">
           <h2 className="px-2 sm:px-10 font-ubuntu text-3xl">

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Link from "next/link";
+import Image from "next/image";
 
 interface JobOpening {
   id: number;
@@ -10,6 +11,9 @@ interface JobOpening {
   Description: string;
   type: string;
   slug: string;
+  Image: {
+    url: string;
+  };
 }
 
 export function JobOpeningSection() {
@@ -26,7 +30,7 @@ export function JobOpeningSection() {
       redirect: "follow" as RequestRedirect,
     };
 
-    fetch("https://dev-api.instient.com/api/jobopenings", requestOptions)
+    fetch("https://dev-api.instient.com/api/jobopenings?populate=*", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setJobOpeningsData(result.data);
@@ -45,7 +49,14 @@ export function JobOpeningSection() {
         {jobOpeningsData.map((job) => (
           <div key={job.id} className="relative mb-14 sm:mb-14 w-full sm:w-[407px]">
             {/* Background Underlap */}
-            <div className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"></div>
+                <Image 
+                  src={`https://dev-api.instient.com${job.Image.url}`} // Dynamically set the full image URL from the API
+                  alt="Career Image"
+                  fill
+                  priority
+                  sizes="100vw"
+                  className="-z-10 object-contain"
+                />
 
             {/* Card Component */}
             <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-16 w-[90%] mx-auto">

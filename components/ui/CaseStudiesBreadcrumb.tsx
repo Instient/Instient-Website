@@ -30,7 +30,7 @@ async function fetchCaseStudies() {
   return (
     data?.data?.map((caseStudy: any) => ({
       name: caseStudy.Title,
-      href: `/case-studies/${caseStudy.slug}`,
+      href: `/casestudies/${caseStudy.slug}`,
     })) || []
   );
 }

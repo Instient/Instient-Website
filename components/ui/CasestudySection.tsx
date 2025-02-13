@@ -70,7 +70,7 @@ export function CaseStudySection() {
             <div className="text-center mt-6">
               <Button
                 onClick={handleShowMore}
-                className="rounded-full border-black border-2 text-black font-ubuntu bg-white"
+                className="rounded-full border-black border-[1.5px] text-black font-ubuntu bg-white"
               >
                 Show More Case Studies
               </Button>
