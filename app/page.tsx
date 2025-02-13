@@ -90,7 +90,7 @@ export default function Home() {
 
           {/* Content */}
           <div className="flex my-64 sm:my-64">
-            <Card className="w-full sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#215E92] text-white">
+            <Card className="w-full sm:w-[650px] border-0 bg-gradient-to-b from-[#3c83c1] to-[#215E92] text-white">
               <CardHeader>
                 <CardTitle className="text-base font-light">
                   {homeData.Card_Header}
@@ -104,7 +104,7 @@ export default function Home() {
               </CardContent>
               <CardFooter className="flex justify-end">
                 <Link href={`/news/${homeData.Card_link}`}>
-                  <Button className="bg-transparent rounded-full border-2 flex items-center gap-2">
+                  <Button className="bg-transparent rounded-full  border-[1.5px] flex items-center p-5 gap-2">
                     {homeData.Card_Button} <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
@@ -131,7 +131,7 @@ export default function Home() {
                 </CardContent>
                 <CardFooter className="flex justify-end py-6">
                   <Link href="/news/2024-vietnam-investor-exposition">
-                    <Button className="text-black border-black border-2 rounded-full flex items-center font-ubuntu gap-2">
+                    <Button className="text-black border-black border-[1.5px] rounded-full flex items-center font-ubuntu gap-2">
                       {homeData.Content_Button} <ArrowRight className="w-4 h-4" />
                     </Button>
                   </Link>
@@ -151,7 +151,7 @@ export default function Home() {
 
           <div className="sm:px-10">
             <Link href="/news">
-              <Button className="text-black border-black border-2 rounded-full flex items-center font-ubuntu gap-2">
+              <Button className="text-black border-black  border-[1.5px] rounded-full flex items-center font-ubuntu gap-2">
                 {homeData.Page_Button} <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
