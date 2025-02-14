@@ -18,18 +18,13 @@ export default function GetInTouch({ isOpen, onClose }: GetInTouchProps): JSX.El
   const [firstName, setFirstName] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [country, setCountry] = React.useState("");
-  const [isChecked, setIsChecked] = React.useState(false);  // For the checkbox to verify "I'm not a robot"
-  const [isTermsChecked, setIsTermsChecked] = React.useState(false); // For terms and conditions checkbox
+  const [isChecked, setIsChecked] = React.useState(false);  // For the combined checkbox (I'm not a robot + terms)
 
-  // Check if all required fields and checkboxes are completed
-  const isFormValid = firstName && message && country && isChecked && isTermsChecked;
-
-  const handleTermsChange = () => {
-    setIsTermsChecked((prev) => !prev);
-  };
+  // Check if all required fields and the checkbox are completed
+  const isFormValid = firstName && message && country && isChecked;
 
   const handleCheckboxChange = () => {
-    setIsChecked((prev) => !prev);  // Toggle isChecked (for "I'm not a robot")
+    setIsChecked((prev) => !prev);  // Toggle the single checkbox
   };
 
   return (
@@ -79,23 +74,18 @@ export default function GetInTouch({ isOpen, onClose }: GetInTouchProps): JSX.El
                 />
               </div>
 
-              {/* Combined checkbox for terms and "I'm not a robot" */}
+              {/* Single checkbox for both "I'm not a robot" and terms */}
               <div className="flex items-center space-x-2">
-                <Checkbox id="terms-robot" checked={isTermsChecked && isChecked} onCheckedChange={handleTermsChange} />
+                <Checkbox id="terms-robot" checked={isChecked} onCheckedChange={handleCheckboxChange} />
                 <label
                   htmlFor="terms-robot"
-                  className="text-xs gap-3 font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-xs gap-3 font-normal leading-none"
                 >
-                  <div className="space-y-1">
-                    <p>
-                      I agree to Instient collecting and processing my personal data to allow me to receive information on Instient services.
-                      For further information, please see
-                      <a href="/privacy-notice" className="text-blue-500 underline" target="_blank" rel="noopener noreferrer">
-                        our Privacy Notice.
-                      </a>
-                    </p>
-                    
-                  </div>
+                  I agree to Instient collecting and processing my personal data and confirm that I'm not a robot. 
+                  For further information, please see
+                  <a href="/privacy-notice" className="text-blue-500 underline" target="_blank" rel="noopener noreferrer">
+                    our Privacy Notice.
+                  </a>
                 </label>
               </div>
             </form>
@@ -103,7 +93,7 @@ export default function GetInTouch({ isOpen, onClose }: GetInTouchProps): JSX.El
 
           <div className="flex justify-start px-3">
             <Button
-              className="bg-white text-black rounded-full border-[1.5px] flex items-center p-5 gap-2"
+              className="bg-white border-black text-black rounded-full border-[1.5px] flex items-center p-5 gap-2"
               disabled={!isFormValid} // Disable button if form is not valid
             >
               Submit <ArrowRight className="w-4 h-4" />
