@@ -56,12 +56,15 @@ export function CaseStudySection() {
               </div>
               <div className="mt-3 sm:mt-0 sm:ml-auto">
                 <Link href={`/casestudies/${caseStudyItem.slug}`}>
-                  <Button
-                    size="sm"
-                    className="rounded-full border-black border-2 text-black font-ubuntu bg-white"
-                  >
+                <Button className="text-black border-black border-[1/5px] rounded-full flex items-center font-ubuntu gap-2 mt-2 relative overflow-hidden group 
+                  transition-all duration-300 ease-out">
+                  <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+                  <span className="relative z-10 flex items-center gap-2 hover:text-white hover:border-gray-300">
                     Read More <ArrowRight className="w-4 h-4" />
-                  </Button>
+                  </span>
+                </Button>
+
+
                 </Link>
               </div>
             </div>

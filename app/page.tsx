@@ -133,9 +133,16 @@ export default function Home() {
                 </CardContent>
                 <CardFooter className="flex justify-end py-6">
                   <Link href="/news/2024-vietnam-investor-exposition">
-                    <Button className="text-black border-black border-[1.5px] rounded-full flex items-center font-ubuntu gap-2">
+                  <Button
+                    className="relative text-black border-black border-[1.5px] rounded-full flex items-center font-ubuntu gap-2 
+                              overflow-hidden transition-all duration-300 ease-out group"
+                  >
+                    <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full "></span>
+                    <span className="relative z-10 flex items-center gap-2 hover:text-white hover:border-gray-300">
                       {homeData.Content_Button} <ArrowRight className="w-4 h-4" />
-                    </Button>
+                    </span>
+                  </Button>
+
                   </Link>
                 </CardFooter>
               </Card>
@@ -153,9 +160,16 @@ export default function Home() {
 
           <div className="sm:px-10">
             <Link href="/news">
-              <Button className="text-black border-black  border-[1.5px] rounded-full flex items-center font-ubuntu gap-2">
+            <Button
+              className="relative text-black border-black border-[1.5px] rounded-full flex items-center font-ubuntu gap-2 
+                        overflow-hidden transition-all duration-300 ease-out group"
+            >
+              <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+              <span className="relative z-10 flex items-center gap-2 group-hover hover:text-white hover:border-gray-300">
                 {homeData.Page_Button} <ArrowRight className="w-4 h-4" />
-              </Button>
+              </span>
+            </Button>
+
             </Link>
           </div>
         </div>

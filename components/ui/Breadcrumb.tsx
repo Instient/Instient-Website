@@ -6,19 +6,32 @@ import { ChevronRight, ChevronDown, ArrowRight, ChevronLeft } from "lucide-react
 import ServicesBreadcrumb from "./ServicesBreadcrumb";
 import CaseStudiesBreadcrumb from "./CaseStudiesBreadcrumb";
 import NewsBreadcrumb from "./NewsBreadcrumb";
+import AboutUsBreadcrumb from "./AboutUsBreadcrumb";
+import CareersBreadcrumb from "./CareersBreadcrumb";
+import { useState } from "react"; // Import useState for state management
+import GetInTouch from "./GetInTouch"; // Import GetInTouch component
 
 const routeMap: Record<string, string> = {
   services: "Services",
   casestudies: "Case Studies",
   careers: "Careers",
   news: "News",
-  aboutus: "About Us",
-  contactus: "Contact Us",
+  aboutus: "About us",
+  contactus: "Contact us",
 };
 
 export default function Breadcrumb() {
   const pathname = usePathname();
   const segments = pathname.split("/").filter((segment) => segment !== "");
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // Add state to control the dialog visibility
+
+  const openDialog = () => {
+    setIsDialogOpen(true); // Open the dialog
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false); // Close the dialog
+  };
 
   if (pathname === "/") return null; // Hide breadcrumb on home page
 
@@ -34,53 +47,61 @@ export default function Breadcrumb() {
       : "Home";
 
   return (
-    <nav className="bg-gray-100 shadow-md w-full px-8 py-3 flex justify-between items-center">
-      {/* Desktop View */}
-      <div className="hidden md:flex items-center space-x-2 text-base font-ubuntu text-black max-w-7xl">
-        <Link href="/" className="hover:text-gray-700 font-medium">Home</Link>
-        {segments.length > 0 && <ChevronRight className="w-5 h-5" />}
-        {segments.map((segment, index) => {
-          const href = "/" + segments.slice(0, index + 1).join("/");
-          const label = routeMap[segment.toLowerCase()] || decodeURIComponent(segment).replace(/-/g, " ");
+    <>
+      <nav className="bg-gray-100 shadow-md w-full px-8 py-3 flex justify-between items-center">
+        {/* Desktop View */}
+        <div className="hidden md:flex items-center space-x-2 text-base font-ubuntu text-black max-w-7xl">
+          <Link href="/" className="hover:text-gray-700 font-medium">Home</Link>
+          {segments.length > 0 && <ChevronRight className="w-5 h-5" />}
+          {segments.map((segment, index) => {
+            const href = "/" + segments.slice(0, index + 1).join("/");
+            const label = routeMap[segment.toLowerCase()] || decodeURIComponent(segment).replace(/-/g, " ");
 
-          return (
-            <div key={href} className="relative flex items-center space-x-2">
-              <Link href={href} className="capitalize hover:text-gray-700 font-medium">
-                {label}
-              </Link>
+            return (
+              <div key={href} className="relative flex items-center space-x-2">
+                <Link href={href} className="hover:text-gray-700 font-medium">
+                  {label}
+                </Link>
 
-              {/* Dynamic Subpage Dropdowns */}
-              {segment === "services" && <ServicesBreadcrumb />}
-              {segment === "casestudies" && <CaseStudiesBreadcrumb />}
-              {segment === "news" && <NewsBreadcrumb />}
+                {/* Dynamic Subpage Dropdowns */}
+                {segment === "services" && <ServicesBreadcrumb />}
+                {segment === "casestudies" && <CaseStudiesBreadcrumb />}
+                {segment === "news" && <NewsBreadcrumb />}
+                {segment === "aboutus" && <AboutUsBreadcrumb />}
+                {segment === "careers" && <CareersBreadcrumb />}
 
-              {index < segments.length - 1 && <ChevronRight className="w-5 h-5" />}
-            </div>
-          );
-        })}
-      </div>
+                {index < segments.length - 1 && <ChevronRight className="w-5 h-5" />}
+              </div>
+            );
+          })}
+        </div>
 
-      {/* Mobile View */}
-     {/* Mobile View */}
-      <div className="md:hidden flex items-center w-full justify-between">
+        {/* Mobile View */}
+        <div className="md:hidden flex items-center w-full justify-between">
+          <Link
+            href={previousPage}
+            className="flex items-center text-base sm:text-sm font-medium text-black"
+          >
+            <ChevronLeft className="w-5 h-5" />
+            {previousLabel}
+          </Link>
+        </div>
+
+        {/* Get in Touch Button */}
         <Link
-          href={previousPage}
-          className="flex items-center text-base sm:text-sm font-medium text-black"
+          href="#"
+          onClick={openDialog} // Trigger dialog open when clicked
+          className="bg-gray-200 text-black px-6 py-2 w-full sm:w-auto rounded-md flex items-center justify-center text-sm font-medium shadow hover:bg-gray-300 transition-all duration-300 ease-out overflow-hidden relative group"
         >
-          <ChevronLeft className="w-5 h-5" />
-          {previousLabel}
+          <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+          <span className="relative z-10 flex items-center gap-2">
+            Get in Touch <ArrowRight className="w-4 h-4 ml-2" />
+          </span>
         </Link>
-      </div>
+      </nav>
 
-
-      {/* Get in Touch Button (visible on all views) */}
-      <Link
-        href="/contactus"
-        className="bg-gray-200 text-black px-6 py-2 w-full sm:w-auto rounded-md flex items-center justify-center text-sm font-medium shadow hover:bg-gray-300 transition-all"
-      >
-        Get in Touch <ArrowRight className="w-4 h-4 ml-2" />
-      </Link>
-
-    </nav>
+      {/* GetInTouch Dialog Component */}
+      <GetInTouch isOpen={isDialogOpen} onClose={closeDialog} />
+    </>
   );
 }

@@ -62,9 +62,10 @@ export function CareerSection() {
             </CardContent>
             <CardFooter className="flex justify-end sm:py-6 pb-6">
               <Link href={`/careers/${item.link}`} passHref>
-                <Button className="text-black border-black rounded-full flex items-center font-ubuntu gap-2">
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
+              <Button className="text-black border-black rounded-full flex items-center font-ubuntu gap-2 
+                  hover:bg-gray-200  hover:border-gray-300 transition-all duration-300 ease-in-out transform hover:scale-105">
+                <ArrowRight className="w-4 h-4" />
+              </Button>
               </Link>
             </CardFooter>
           </Card>

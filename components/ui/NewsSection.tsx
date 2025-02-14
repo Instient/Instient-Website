@@ -60,12 +60,14 @@ export function NewsSection() {
               </div>
               <div className="mt-3 sm:mt-0 sm:ml-auto">
                 <Link href={`/news/${newsItem.slug}`}>
-                  <Button
-                    size="sm"
-                    className="rounded-full border-black border-2 text-black font-ubuntu bg-white"
-                  >
-                    Read More <ArrowRight className="w-4 h-4" />
-                  </Button>
+                <Button
+                  size="sm"
+                  className="rounded-full border-black border-2 text-black font-ubuntu bg-white 
+                            hover:bg-gray-200  hover:border-gray-300 transition-all duration-300 ease-in-out transform hover:scale-105"
+                >
+                  Read More <ArrowRight className="w-4 h-4" />
+                </Button>
+
                 </Link>
               </div>
             </div>
@@ -74,10 +76,12 @@ export function NewsSection() {
             <div className="text-center mt-6">
               <Button
                 onClick={handleShowMore}
-                className="rounded-full border-black border-2 text-black font-ubuntu bg-white"
+                className="rounded-full border-black border-2 text-black font-ubuntu bg-white 
+                          hover:bg-gray-200 hover:border-gray-300 transition-all duration-300 ease-in-out transform hover:scale-105"
               >
                 Show More news
               </Button>
+
             </div>
           )}
         </div>

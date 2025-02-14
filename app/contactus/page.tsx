@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,6 +9,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import GetInTouch from "@/components/ui/GetInTouch";
+
 interface ContactData {
   Title: string;
   Description_mobile: string;
@@ -24,6 +26,7 @@ interface ContactData {
 
 export default function Contact() {
   const [contactData, setContactData] = useState<ContactData | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
   const pathname = usePathname();
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
@@ -50,7 +53,7 @@ export default function Contact() {
 
   if (!contactData) {
     return (
-         // Loading spinner
+      // Loading spinner
       <div className="flex justify-center items-center w-full h-screen">
         <div className="flex flex-row gap-2">
           <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
@@ -61,10 +64,8 @@ export default function Contact() {
     );
   }
 
-
   return (
     <main>
-
       <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu relative">
         {/* Background Image */}
         <Image 
@@ -88,43 +89,46 @@ export default function Contact() {
         </div>
       </div>
 
-    <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-32 sm:mt-24 sm:w-[60%]">
-    <p className="text-2xl px-6 font-ubuntu sm:hidden">{contactData.Description_mobile}</p>
-    <p className="text-2xl px-6 font-ubuntu hidden sm:block">{contactData.Description_web}</p>
-    </div>
+      <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-32 sm:mt-24 sm:w-[60%]">
+        <p className="text-2xl px-6 font-ubuntu sm:hidden">{contactData.Description_mobile}</p>
+        <p className="text-2xl px-6 font-ubuntu hidden sm:block">{contactData.Description_web}</p>
+      </div>
 
-    <ContactSection/>
+      <ContactSection/>
 
-    <div className="w-full px-6 py-6 mt-10 sm:mt-10 bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu mb-6 relative">
-      <p className="text-3xl font-ubuntu font-semibold mb-1">{contactData.Bottom_Title}</p>
-      <p className="text-lg font-ubuntu">{contactData.Bottom_Description}</p>
-      
-      {/* Button positioned for desktop and moved below in mobile */}
-      <Link href={`/${contactData.Bottom_Link}`}>
+      <div className="w-full px-6 py-6 mt-10 sm:mt-10 bg-[#0070ad] text-white font-ubuntu mb-6 relative">
+        <p className="text-3xl font-ubuntu font-semibold mb-1">{contactData.Bottom_Title}</p>
+        <p className="text-lg font-ubuntu">{contactData.Bottom_Description}</p>
+        
+        {/* Button positioned for desktop and moved below in mobile */}
         <Button
           size="lg"
-          className="absolute top-1/2 right-6 transform -translate-y-1/2 rounded-full text-black font-ubuntu bg-white hidden sm:inline-flex"
+          className="absolute top-1/2 right-6 transform -translate-y-1/2 rounded-full text-black font-ubuntu bg-white hidden sm:inline-flex 
+                    transition-all duration-300 ease-out overflow-hidden group"
+          onClick={() => setModalOpen(true)}
         >
-        {contactData.Bottom_Button} <ArrowRight className="w-4 h-4" />
-        </Button>
-      </Link>
-
-      <Link href={`/${contactData.Bottom_Link}`}>
-        <Button
-            size="lg"
-            className="mt-4 rounded-full text-black font-ubuntu bg-white sm:hidden"
-          >
+          <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+          <span className="relative z-10 flex items-center gap-2">
             {contactData.Bottom_Button} <ArrowRight className="w-4 h-4" />
-          </Button>
-      </Link>
-       
-        
-    </div>
+          </span>
+        </Button>
 
+        <Button
+          size="lg"
+          className="mt-4 rounded-full text-black font-ubuntu bg-white sm:hidden
+                    transition-all duration-300 ease-out overflow-hidden relative group"
+          onClick={() => setModalOpen(true)}
+        >
+          <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full "></span>
+          <span className="relative z-10 flex items-center gap-2">
+            {contactData.Bottom_Button} <ArrowRight className="w-4 h-4" />
+          </span>
+        </Button>
 
+      </div>
 
-    <Footer/>
-
-  </main>
-  )
+      <GetInTouch isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
+      <Footer/>
+    </main>
+  );
 }

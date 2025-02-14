@@ -1,7 +1,11 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Footer } from "@/components/ui/footer";
-import Image from 'next/image'; // Importing Image
-
+import Image from 'next/image';
+import { useEffect, useState } from "react";
+import ApplyJob from "@/components/ui/ApplyJob";
+import { ArrowRight } from "lucide-react";
 
 async function fetchInternshipData(slug: string) {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
@@ -17,13 +21,46 @@ async function fetchInternshipData(slug: string) {
   );
 
   const data = await response.json();
-
   return data?.data?.[0] ?? null;
 }
 
-export default async function InternshipSlugPage({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
-  const internshipData = await fetchInternshipData(slug);
+export default function InternshipSlugPage({ params }: { params: Promise<{ slug: string }> }) {
+  const [slug, setSlug] = useState<string | null>(null);
+  const [internshipData, setInternshipData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    async function getSlug() {
+      const resolvedParams = await params; // Resolving the params Promise
+      setSlug(resolvedParams.slug);
+    }
+
+    getSlug();
+  }, [params]);
+
+  useEffect(() => {
+    async function getData() {
+      if (!slug) return;
+      const fetchedData = await fetchInternshipData(slug);
+      setInternshipData(fetchedData);
+      setIsLoading(false);
+    }
+
+    getData();
+  }, [slug]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center w-full h-screen">
+        <div className="flex flex-row gap-2">
+          <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
+          <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
+          <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
+        </div>
+      </div>
+    )
+  }
 
   if (!internshipData || !internshipData.Title || !internshipData.Description) {
     return <p className="text-center mt-20">This internship does not exist or is missing required fields.</p>;
@@ -43,19 +80,15 @@ export default async function InternshipSlugPage({ params }: { params: { slug: s
 
   return (
     <main>
-      {/* Header Section */}
       <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu relative">
-        {/* Image Component as Background */}
         <Image
-          src={url ? `https://dev-api.instient.com${url}` : '/default-image.png'} // Use default image if url is undefined
+          src={url ? `https://dev-api.instient.com${url}` : '/default-image.png'}
           alt="Background Image"
           fill
           priority
           sizes="100vw"
-          className="-z-10 object-cover" // Ensures image covers the space and stays behind content
+          className="-z-10 object-cover"
         />
-
-        {/* Card Content */}
         <div className="my-64 sm:my-64 relative z-10">
           <Card className="lg:w-[600px] sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu">
             <CardHeader>
@@ -72,26 +105,37 @@ export default async function InternshipSlugPage({ params }: { params: { slug: s
         </div>
       </div>
 
-      {/* Internship Description */}
       <div className="container sm:p-6 py-4 px-3 font-ubuntu mt-32 sm:mt-24 w-[100%] sm:w-[60%]">
         <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">Internship Description</h2>
         <p className="text-lg px-6 font-ubuntu text-justify mt-4">{Description}</p>
       </div>
 
-      {/* Detailed Internship Sections */}
       <InternshipSection title="About the Role" content={role} isRole />
       <InternshipSection title="Key Responsibilities" content={responsibilty} />
       <InternshipSection title="Required Skills" content={skills} />
       <InternshipSection title="Preferred Qualifications" content={Qulaification} />
 
-      {/* Apply Button */}
-      <div className=" px-6 text-center sm:text-left sm:px-12 mt-12 mb-10">
-        <button className="bg-blue-500 text-white py-3 px-6 rounded-lg shadow-md hover:bg-blue-600 transition-all">
-          Apply Now
+      <div className="px-6 text-center sm:text-left sm:px-12 mt-12 mb-10">
+        <button
+            className="bg-white border-black text-black rounded-full border-[1.5px] flex items-center p-3 gap-2 transition-all duration-300 ease-out overflow-hidden relative group"
+            onClick={() => setIsModalOpen(true)}
+        >
+            <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+            <span className="relative z-10 flex  hover:text-white hover:border-white items-center gap-2">
+              Apply Now <ArrowRight className="w-4 h-4" />
+            </span>
         </button>
+
       </div>
 
-      {/* Footer */}
+      {isModalOpen && (
+        <ApplyJob 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)}
+          jobTitle={Title}
+        />
+      )}
+
       <Footer />
     </main>
   );
@@ -112,7 +156,7 @@ function InternshipSection({ title, content, isRole }: { title: string; content:
   return (
     <div className="sm:px-6 px-3 py-4 mt-4 sm:mt-4 sm:mb-4">
       <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">{title}</h2>
-      <div className="container sm:p-6 py-6 px-6 font-ubuntu  sm:mt-2 w-[100%] sm:w-[60%] text-justify">
+      <div className="container sm:p-6 py-6 px-6 font-ubuntu sm:mt-2 w-[100%] sm:w-[60%] text-justify">
         {formattedContent}
       </div>
     </div>
