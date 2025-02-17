@@ -108,7 +108,7 @@ export default function Contact() {
           onClick={() => setModalOpen(true)}
         >
           <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
-          <span className="relative z-10 flex items-center gap-2">
+          <span className="relative hover:text-white z-10 flex items-center gap-2">
             {contactData.Bottom_Button} <ArrowRight className="w-4 h-4" />
           </span>
         </Button>
@@ -119,8 +119,8 @@ export default function Contact() {
                     transition-all duration-300 ease-out overflow-hidden relative group"
           onClick={() => setModalOpen(true)}
         >
-          <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full "></span>
-          <span className="relative z-10 flex items-center gap-2">
+          <span className="absolute inset-0 w-0  bg-gray-400 transition-all duration-300 ease-out group-hover:w-full "></span>
+          <span className="relative hover:text-white z-10 flex items-center gap-2">
             {contactData.Bottom_Button} <ArrowRight className="w-4 h-4" />
           </span>
         </Button>

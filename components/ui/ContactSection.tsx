@@ -11,10 +11,12 @@ interface ContactItem {
   Content2_Title?: string;
   Content_Desc1: string;
   Content_Desc2?: string;
+  Content_Desc3?: string; // New field for phone number
   Content_Link: string;
   Content_Button: string;
   Content2_Desc1?: string;
   Content2_Desc2?: string;
+  Content2_Desc3?: string; // New field for phone number
   Content2_Link?: string;
   content2_Button?: string;
 }
@@ -30,7 +32,7 @@ export function ContactSection() {
     const requestOptions: RequestInit = {
       method: "GET",
       headers: myHeaders,
-      redirect: "follow" as RequestRedirect, // Explicitly type it
+      redirect: "follow" as RequestRedirect,
     };
     
     fetch("https://dev-api.instient.com/api/contacts", requestOptions)
@@ -50,8 +52,9 @@ export function ContactSection() {
             <div className="flex flex-col md:flex-row gap-6">
               <div className="flex-1">
                 <h3 className="text-xl font-semibold mb-1">{contactItem.Content_Title}</h3>
-                <p className="text-sm mb-1">{contactItem.Content_Desc1}</p>
-                {contactItem.Content_Desc2 && <p className="text-sm mb-1">{contactItem.Content_Desc2}</p>}
+                <p className="text-sm mb-1 ">{contactItem.Content_Desc1}</p>
+                <p className="text-sm mb-1">{contactItem.Content_Desc2}</p>
+                {contactItem.Content_Desc3 && <p className="text-sm mb-1">{contactItem.Content_Desc3}</p>}
                 <Link href={contactItem.Content_Link}>
                   <Button
                     size="sm"
@@ -68,8 +71,9 @@ export function ContactSection() {
               <div className="border-l border-gray-300"></div>
               <div className="flex-1">
                 <h3 className="text-xl font-semibold mb-1">{contactItem.Content2_Title}</h3>
-                <p className="text-sm mb-1">{contactItem.Content2_Desc1}</p>
-                {contactItem.Content2_Desc2 && <p className="text-sm mb-1">{contactItem.Content2_Desc2}</p>}
+                <p className="text-sm mb-1 ">{contactItem.Content2_Desc1}</p>
+                <p className="text-sm mb-1">{contactItem.Content2_Desc2}</p>
+                {contactItem.Content2_Desc3 && <p className="text-sm mb-1">{contactItem.Content2_Desc3}</p>}
                 <Link href={contactItem.Content2_Link}>
                   <Button
                     size="sm"
@@ -87,9 +91,9 @@ export function ContactSection() {
           ) : (
             <div>
               <h3 className="text-xl font-semibold mb-1">{contactItem.Content_Title}</h3>
-              <p className="text-sm mb-1">{contactItem.Content_Desc1}</p>
-              {contactItem.Content_Desc2 && <p className="text-sm mb-1">{contactItem.Content_Desc2}</p>}
-  
+              <p className="text-sm mb-1 ">{contactItem.Content_Desc1}</p>
+              <p className="text-sm mb-1">{contactItem.Content_Desc2}</p>
+              {contactItem.Content_Desc3 && <p className="text-sm mb-1">{contactItem.Content_Desc3}</p>}
               {contactItem.Content_Link && (
                 <Link href={contactItem.Content_Link}>
                   <Button
@@ -110,7 +114,6 @@ export function ContactSection() {
       ))}
     </div>
   );
-  
 }
 
 export default ContactSection;

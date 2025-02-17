@@ -31,6 +31,7 @@ const routes = [
     name: "About us",
     href: "/aboutus",
   },
+  
 ];
 
 export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
@@ -68,30 +69,26 @@ export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElem
           </button>
 
           {/* Navigation Section for Desktop */}
-          <div className="hidden lg:flex flex-1 justify-between items-center">
-            {/* Left Routes */}
-            <div className="flex space-x-1">
-              {routes.map((route) => (
-                <NavLink
-                  key={route.href}
-                  route={route}
-                  isActive={pathname === route.href}
-                />
-              ))}
-            </div>
+          <div className="hidden lg:flex flex-1 justify-start items-center space-x-1">
+            {routes.map((route) => (
+              <NavLink
+                key={route.href}
+                route={route}
+                isActive={pathname === route.href}
+              />
+            ))}
+            {/* Contact Us beside About Us */}
+            <Link
+              href="/contactus"
+              className={cn(
+                "group relative flex h-7 items-center justify-start rounded-full px-4 text-base font-ubuntu text-black-600 transition-colors hover:text-primary",
+                pathname === "/contactus" && "bg-gray-100 text-primary"
+              )}
+            >
+              Contact us
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 transition-transform group-hover:scale-x-100" />
+            </Link>
 
-            {/* Contact Us Link */}
-            <div>
-              <Link
-                href="/contactus"
-                className={cn(
-                  "flex h-7 items-center justify-center rounded-full px-4 text-center text-base font-ubuntu text-black-600 transition-colors hover:text-primary",
-                  pathname === "/contactus" && "bg-gray-100 text-primary"
-                )}
-              >
-                Contact us
-              </Link>
-            </div>
           </div>
         </div>
 
@@ -108,12 +105,14 @@ export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElem
             <Link
               href="/contactus"
               className={cn(
-                "flex h-7 items-center justify-start rounded-full px-4 text-base font-ubuntu text-black-600 transition-colors hover:text-primary",
+                "group relative flex h-7 items-center justify-start rounded-full px-4 text-base font-ubuntu text-black-600 transition-colors hover:text-primary",
                 pathname === "/contactus" && "bg-gray-100 text-primary"
               )}
             >
               Contact us
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 transition-transform group-hover:scale-x-100" />
             </Link>
+
           </div>
         )}
 
@@ -134,11 +133,13 @@ function NavLink({
     <Link
       href={route.href}
       className={cn(
-        "flex h-7 items-center justify-start rounded-full px-4 text-base font-ubuntu text-black-600 transition-colors hover:text-primary",
+        "group relative flex h-7 items-center justify-start rounded-full px-4 text-base font-ubuntu text-black-600 transition-colors hover:text-primary",
         isActive && "bg-gray-100 text-primary"
       )}
     >
       {route.name}
+      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 transition-transform group-hover:scale-x-100" />
     </Link>
   );
 }
+

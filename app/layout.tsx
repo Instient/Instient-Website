@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/ui/Navbar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import Head from "next/head";  // Import Head for setting title and favicon
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
       
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* Navbar remains at the top */}
+        <Toaster/>
         <Navbar />
         
         {/* Sticky Breadcrumb that replaces Navbar on scroll */}

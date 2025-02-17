@@ -43,7 +43,14 @@ export default function Breadcrumb() {
   const previousLabel =
     segments.length > 1
       ? routeMap[segments[segments.length - 2]] ||
-        decodeURIComponent(segments[segments.length - 2]).replace(/-/g, " ")
+        decodeURIComponent(segments[segments.length - 2])
+          .split("-")
+          .map((word) =>
+            ["aboutus", "contactus"].includes(segments[segments.length - 2].toLowerCase())
+              ? word.charAt(0).toLowerCase() + word.slice(1)
+              : word.charAt(0).toUpperCase() + word.slice(1)
+          )
+          .join(" ")
       : "Home";
 
   return (
@@ -55,7 +62,16 @@ export default function Breadcrumb() {
           {segments.length > 0 && <ChevronRight className="w-5 h-5" />}
           {segments.map((segment, index) => {
             const href = "/" + segments.slice(0, index + 1).join("/");
-            const label = routeMap[segment.toLowerCase()] || decodeURIComponent(segment).replace(/-/g, " ");
+            const label =
+              routeMap[segment.toLowerCase()] ||
+              decodeURIComponent(segment)
+                .split("-")
+                .map((word) =>
+                  ["aboutus", "contactus"].includes(segment.toLowerCase())
+                    ? word.charAt(0).toLowerCase() + word.slice(1)
+                    : word.charAt(0).toUpperCase() + word.slice(1)
+                )
+                .join(" ");
 
             return (
               <div key={href} className="relative flex items-center space-x-2">
@@ -90,14 +106,19 @@ export default function Breadcrumb() {
         {/* Get in Touch Button */}
         <Link
           href="#"
-          onClick={openDialog} // Trigger dialog open when clicked
-          className="bg-gray-200 text-black px-6 py-2 w-full sm:w-auto rounded-md flex items-center justify-center text-sm font-medium shadow hover:bg-gray-300 transition-all duration-300 ease-out overflow-hidden relative group"
+          onClick={(e) => {
+            e.preventDefault();
+            openDialog();
+          }}
+          aria-label="Open contact dialog"
+          className="bg-gray-300 text-black px-4 py-2 w-full sm:w-auto rounded-md flex items-center justify-center text-sm font-medium shadow-md hover:shadow-lg transition-all duration-300 ease-out overflow-hidden relative group"
         >
-          <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
-          <span className="relative z-10 flex items-center gap-2">
+          <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full origin-left"></span>
+          <span className="relative hover:text-white z-10 flex items-center">
             Get in Touch <ArrowRight className="w-4 h-4 ml-2" />
           </span>
         </Link>
+
       </nav>
 
       {/* GetInTouch Dialog Component */}

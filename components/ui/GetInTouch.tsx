@@ -7,7 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { ArrowRight } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox"; // Import Checkbox
+import { Checkbox } from "@/components/ui/checkbox";
+import { useToast } from "@/hooks/use-toast";
 
 interface GetInTouchProps {
   isOpen: boolean;
@@ -15,21 +16,30 @@ interface GetInTouchProps {
 }
 
 export default function GetInTouch({ isOpen, onClose }: GetInTouchProps): JSX.Element {
+  const { toast } = useToast();
   const [firstName, setFirstName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [jobTitle, setJobTitle] = React.useState("");
+  const [phone, setPhone] = React.useState("");
+  const [company, setCompany] = React.useState("");
+  const [industry, setIndustry] = React.useState("");
+  const [positionLevel, setPositionLevel] = React.useState("");
   const [message, setMessage] = React.useState("");
-  const [country, setCountry] = React.useState("");
-  const [isChecked, setIsChecked] = React.useState(false);  // For the combined checkbox (I'm not a robot + terms)
+  const [isChecked, setIsChecked] = React.useState(false);
 
-  // Check if all required fields and the checkbox are completed
-  const isFormValid = firstName && message && country && isChecked;
+  const isFormValid = firstName && email && jobTitle && company && industry && positionLevel && message && isChecked;
 
-  const handleCheckboxChange = () => {
-    setIsChecked((prev) => !prev);  // Toggle the single checkbox
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isFormValid) {
+      toast({ description: "Thank you! Our team will get in touch with you soon." });
+      onClose();
+    }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-full sm:w-[90%] md:w-[80%] max-w-lg py-5 h-[500px] font-ubuntu flex justify-center mt-10 sm:px-6 md:px-4">
+      <DialogContent className="w-full sm:w-[90%] md:w-[80%] max-w-lg py-5 font-ubuntu flex justify-center sm:px-6 md:px-4">
         <div className="w-full space-y-6">
           <DialogHeader className="flex-row items-center justify-between space-x-4 px-3 mt-4">
             <DialogTitle className="text-lg font-medium">Get in touch</DialogTitle>
@@ -37,67 +47,51 @@ export default function GetInTouch({ isOpen, onClose }: GetInTouchProps): JSX.El
           </DialogHeader>
 
           <div className="px-3">
-            <form className="space-y-6">
-              <div className="flex flex-col space-y-1.5">
-                <Input
-                  id="first-name"
-                  placeholder="First Name *"
-                  required
-                  className="placeholder-black"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)} // Handle input change
-                />
-              </div>
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <Input placeholder="First Name *" required value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+              <Input type="email" placeholder="Email *" required value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Input placeholder="Job Title *" required value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} />
+              <Input type="tel" placeholder="Phone (Optional)" value={phone} onChange={(e) => setPhone(e.target.value)} />
+              <Input placeholder="Company/Organization *" required value={company} onChange={(e) => setCompany(e.target.value)} />
 
-              <div className="flex flex-col space-y-1.5">
-                <Select value={country} onValueChange={setCountry}>
-                  <SelectTrigger id="country" className="w-full border border-gray-300 p-2 rounded-md">
-                    <SelectValue placeholder="Select a country" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    <SelectItem value="us">United States</SelectItem>
-                    <SelectItem value="ca">Canada</SelectItem>
-                    <SelectItem value="uk">United Kingdom</SelectItem>
-                    {/* Add more countries here */}
-                  </SelectContent>
-                </Select>
-              </div>
+              <Select value={industry} onValueChange={setIndustry}> 
+                <SelectTrigger className="w-full border border-gray-300 p-2 rounded-md">
+                  <SelectValue placeholder="Select Industry" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="tech">Technology</SelectItem>
+                  <SelectItem value="finance">Finance</SelectItem>
+                  <SelectItem value="healthcare">Healthcare</SelectItem>
+                </SelectContent>
+              </Select>
 
-              <div className="flex flex-col space-y-1.5">
-                <Textarea
-                  id="message"
-                  placeholder="Message *"
-                  className="w-full p-2 border border-gray-300 rounded-md placeholder-black"
-                  required
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)} // Handle textarea change
-                />
-              </div>
+              <Select value={positionLevel} onValueChange={setPositionLevel}> 
+                <SelectTrigger className="w-full border border-gray-300 p-2 rounded-md">
+                  <SelectValue placeholder="Select Position Level" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="entry">Entry Level</SelectItem>
+                  <SelectItem value="mid">Mid Level</SelectItem>
+                  <SelectItem value="senior">Senior Level</SelectItem>
+                </SelectContent>
+              </Select>
 
-              {/* Single checkbox for both "I'm not a robot" and terms */}
+              <Textarea placeholder="Message *" required value={message} onChange={(e) => setMessage(e.target.value)} />
+
               <div className="flex items-center space-x-2">
-                <Checkbox id="terms-robot" checked={isChecked} onCheckedChange={handleCheckboxChange} />
-                <label
-                  htmlFor="terms-robot"
-                  className="text-xs gap-3 font-normal leading-none"
-                >
-                  I agree to Instient collecting and processing my personal data and confirm that I'm not a robot. 
-                  For further information, please see
-                  <a href="/privacy-notice" className="text-blue-500 underline" target="_blank" rel="noopener noreferrer">
-                    our Privacy Notice.
-                  </a>
+                <Checkbox checked={isChecked} onCheckedChange={() => setIsChecked((prev) => !prev)} />
+                <label className="text-xs font-normal leading-none">
+                  I agree to Instient collecting and processing my personal data and confirm that I'm not a robot. For further information, please see
+                  <a href="/privacy-notice" className="text-blue-500 underline" target="_blank" rel="noopener noreferrer"> our Privacy Notice.</a>
                 </label>
               </div>
-            </form>
-          </div>
 
-          <div className="flex justify-start px-3">
-            <Button
-              className="bg-white border-black text-black rounded-full border-[1.5px] flex items-center p-5 gap-2"
-              disabled={!isFormValid} // Disable button if form is not valid
-            >
-              Submit <ArrowRight className="w-4 h-4" />
-            </Button>
+              <div className="flex justify-start px-3">
+                <Button type="submit" className="bg-white border-black text-black rounded-full border-[1.5px] flex items-center p-5 gap-2" >
+                  Submit <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+            </form>
           </div>
         </div>
       </DialogContent>

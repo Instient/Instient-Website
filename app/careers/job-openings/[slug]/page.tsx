@@ -118,7 +118,7 @@ export default function JobOpeningSlugPage({ params }: { params: Promise<{ slug:
 
       <div className="px-6 text-center sm:text-left sm:px-12 mt-12 mb-10">
         <button
-              className="bg-white border-black text-black rounded-full border-[1.5px] flex items-center p-3 gap-2 transition-all duration-300 ease-out overflow-hidden relative group"
+              className="bg-white border-black text-black rounded-full border-[1.5px] flex items-center p-4 gap-1 transition-all duration-300 ease-out overflow-hidden relative group"
               onClick={() => setIsModalOpen(true)}
           >
               <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
