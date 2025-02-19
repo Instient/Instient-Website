@@ -127,7 +127,7 @@ export default function GetInTouch({ isOpen, onClose }: GetInTouchProps): JSX.El
                 </SelectContent>
               </Select>
 
-              <label className="block text-sm font-medium">Purpose <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium">Purpose of contact <span className="text-red-500">*</span></label>
               <Select value={purpose} onValueChange={setPurpose}> 
                 <SelectTrigger className="w-full border border-gray-300 p-2 rounded-md ubuntu-regular">
                   <SelectValue placeholder="Select Purpose" />
