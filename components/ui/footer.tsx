@@ -7,6 +7,7 @@ import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 
 export function Footer() {
   const [hoveredIcon, setHoveredIcon] = useState(null);
+  const [tooltipPosition, setTooltipPosition] = useState(0);
 
   const footerRoutes = [
     { name: "Services", href: "/services" },
@@ -18,7 +19,6 @@ export function Footer() {
   ];
 
   const policyLinks = [
-    { name: "Accessibility", href: "/accessibility" },
     { name: "Cookie Policy", href: "/cookiepolicy" },
     { name: "Cookie Settings", href: "/cookiesettings" },
     { name: "Privacy Notice", href: "/privacynotice" },
@@ -26,10 +26,12 @@ export function Footer() {
   ];
 
   const socialLinks = [
-    { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/company/instient", color: "blue-500" },
-    { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/instientllc", color: "pink-500" },
-    { name: "YouTube", icon: Youtube, href: "https://www.youtube.com/@Instient", color: "red-500" },
-    { name: "Facebook", icon: Facebook, href: "https://www.facebook.com/instient", color: "blue-700" },
+    { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/company/instient" },
+    { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/instientllc" },
+    { name: "YouTube", icon: Youtube, href: "https://www.youtube.com/@Instient" },
+    { name: "Facebook", icon: Facebook, href: "https://www.facebook.com/instient" },
+    { name: "Glassdoor", icon: "/glassdoor.svg", href: "https://www.glassdoor.com", isImage: true },
+    { name: "Twitter", icon: "/twitter.svg", href: "https://x.com/instient", isImage: true },
   ];
 
   return (
@@ -46,8 +48,6 @@ export function Footer() {
               className="mx-auto mt-2 mb-4 lg:mx-0"
             />
           </div>
-
-          {/* List Container with Vertical Stacking for Mobile */}
           <div className="flex flex-col lg:flex-row mt-10 lg:mt-0">
             <div>
               <ul className="text-base">
@@ -79,22 +79,31 @@ export function Footer() {
       <div className="text-black bg-gray-50 py-5 px-6 text-left font-ubuntu">
         <div className="flex flex-col lg:flex-row justify-between text-base relative">
           <p>&copy; Instient PVT LTD, 2025</p>
-          {/* Social Media Icons */}
-          <div className="flex flex-col items-center">
+          <div className="relative flex flex-col items-center">
             {hoveredIcon && (
-              <div className="absolute -top-9 text-black-600 bg-gray-200 px-2 py-1 rounded-full font-ubuntu text-xs transition-opacity">
+              <div
+                className="absolute top-[-30px] bg-gray-200 px-2 py-1 rounded-full font-ubuntu text-xs transition-opacity"
+                style={{ left: `${tooltipPosition}px` }}
+              >
                 {hoveredIcon}
               </div>
             )}
             <div className="flex space-x-4 mt-2 lg:mt-0">
-              {socialLinks.map(({ name, icon: Icon, href, color }) => (
+              {socialLinks.map(({ name, icon: Icon, href, isImage }) => (
                 <Link key={name} href={href} target="_blank" aria-label={name}>
                   <div
-                    className={`p-2 bg-gray-200 rounded-full hover:text-sky-700 transition-all duration-300 transform hover:scale-110`}
-                    onMouseEnter={() => setHoveredIcon(name)}
+                    className="p-2 bg-gray-200 rounded-full hover:text-sky-700 transition-all duration-300 transform hover:scale-110 relative"
+                    onMouseEnter={(e) => {
+                      setHoveredIcon(name);
+                      setTooltipPosition(e.currentTarget.offsetLeft + e.currentTarget.offsetWidth / 2 - 33);
+                    }}
                     onMouseLeave={() => setHoveredIcon(null)}
                   >
-                    <Icon size={20} />
+                    {isImage ? (
+                      <Image src={Icon} alt={name} width={19} height={19} />
+                    ) : (
+                      <Icon size={20} />
+                    )}
                   </div>
                 </Link>
               ))}

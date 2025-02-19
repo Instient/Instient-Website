@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Footer } from "@/components/ui/footer";
 import Image from 'next/image';
 import { useEffect, useState } from "react";
-import ApplyJob from "@/components/ui/ApplyJob";
 import { ArrowRight } from "lucide-react";
 
 async function fetchInternshipData(slug: string) {
@@ -28,7 +27,7 @@ export default function InternshipSlugPage({ params }: { params: Promise<{ slug:
   const [slug, setSlug] = useState<string | null>(null);
   const [internshipData, setInternshipData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  
 
   useEffect(() => {
     async function getSlug() {
@@ -118,7 +117,7 @@ export default function InternshipSlugPage({ params }: { params: Promise<{ slug:
       <div className="px-6 text-center sm:text-left sm:px-12 mt-12 mb-10">
         <button
             className="bg-white border-black text-black rounded-full border-[1.5px] flex items-center p-4 gap-1 transition-all duration-300 ease-out overflow-hidden relative group"
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => window.open("https://forms.gle/qLaXRHh4x6imMCb49", "_blank")}
         >
             <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
             <span className="relative z-10 flex  hover:text-white hover:border-white items-center gap-2">
@@ -128,13 +127,7 @@ export default function InternshipSlugPage({ params }: { params: Promise<{ slug:
 
       </div>
 
-      {isModalOpen && (
-        <ApplyJob 
-          isOpen={isModalOpen} 
-          onClose={() => setIsModalOpen(false)}
-          jobTitle={Title}
-        />
-      )}
+      
 
       <Footer />
     </main>

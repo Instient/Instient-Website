@@ -31,7 +31,6 @@ const routes = [
     name: "About us",
     href: "/aboutus",
   },
-  
 ];
 
 export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
@@ -86,9 +85,8 @@ export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElem
               )}
             >
               Contact us
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 transition-transform group-hover:scale-x-100" />
+              <span className="hidden lg:block absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 transition-transform group-hover:scale-x-100" />
             </Link>
-
           </div>
         </div>
 
@@ -110,9 +108,8 @@ export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElem
               )}
             >
               Contact us
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 transition-transform group-hover:scale-x-100" />
+              <span className="hidden lg:block absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 transition-transform group-hover:scale-x-100" />
             </Link>
-
           </div>
         )}
 
@@ -138,8 +135,7 @@ function NavLink({
       )}
     >
       {route.name}
-      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 transition-transform group-hover:scale-x-100" />
+      <span className="hidden lg:block absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 transition-transform group-hover:scale-x-100" />
     </Link>
   );
 }
-
