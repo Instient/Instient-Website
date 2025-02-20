@@ -30,7 +30,7 @@ export function Footer() {
     { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/instientllc" },
     { name: "YouTube", icon: Youtube, href: "https://www.youtube.com/@Instient" },
     { name: "Facebook", icon: Facebook, href: "https://www.facebook.com/instient" },
-    { name: "Glassdoor", icon: "/glassdoor.svg", href: "https://www.glassdoor.com", isImage: true },
+    { name: "Glassdoor", icon: "/glassdoor.svg", href: "https://www.glassdoor.co.in/Overview/Working-at-Instient-EI_IE9821788.11,19.htm", isImage: true },
     { name: "Twitter", icon: "/twitter.svg", href: "https://x.com/instient", isImage: true },
   ];
 
@@ -39,7 +39,7 @@ export function Footer() {
       {/* Middle Section - Info & Links */}
       <div className="bg-gray-50 text-gray-800 py-6 px-6 text-left lg:text-left">
         <div className="container mx-auto flex flex-col lg:flex-row justify-start lg:justify-between items-start">
-          <div>
+          <Link href="/">
             <Image
               src="/Instient Logo.svg"
               alt="Logo"
@@ -47,7 +47,7 @@ export function Footer() {
               height={150}
               className="mx-auto mt-2 mb-4 lg:mx-0"
             />
-          </div>
+          </Link>
           <div className="flex flex-col lg:flex-row mt-10 lg:mt-0">
             <div>
               <ul className="text-base">
@@ -92,7 +92,7 @@ export function Footer() {
               {socialLinks.map(({ name, icon: Icon, href, isImage }) => (
                 <Link key={name} href={href} target="_blank" aria-label={name}>
                   <div
-                    className="p-2 bg-gray-200 rounded-full hover:text-sky-700 transition-all duration-300 transform hover:scale-110 relative"
+                    className="p-2 bg-gray-200 rounded-full hover:bg-gray-400 transition-all duration-300 transform hover:scale-110 relative"
                     onMouseEnter={(e) => {
                       setHoveredIcon(name);
                       setTooltipPosition(e.currentTarget.offsetLeft + e.currentTarget.offsetWidth / 2 - 33);

@@ -63,7 +63,7 @@ export function ServiceSection() {
                 />
 
               {/* Card Component */}
-              <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-16 w-[90%] mx-auto">
+              <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-28 w-[90%] mx-auto">
                 <CardContent>
                   <p className="text-2xl py-3 font-ubuntu font-extralight">
                     {service.Service_Title}

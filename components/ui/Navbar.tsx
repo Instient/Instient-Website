@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
@@ -11,35 +11,37 @@ import { Menu, X } from "lucide-react"; // For hamburger and close icons
 
 // Define your routes for the navbar
 const routes = [
-  {
-    name: "Services",
-    href: "/services",
-  },
-  {
-    name: "Case Studies",
-    href: "/casestudies",
-  },
-  {
-    name: "Careers",
-    href: "/careers",
-  },
-  {
-    name: "News",
-    href: "/news",
-  },
-  {
-    name: "About us",
-    href: "/aboutus",
-  },
+  { name: "Services", href: "/services" },
+  { name: "Case Studies", href: "/casestudies" },
+  { name: "Careers", href: "/careers" },
+  { name: "News", href: "/news" },
+  { name: "About us", href: "/aboutus" },
 ];
 
 export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Check if user is on the homepage
+  const isHomepage = pathname === "/";
+
+  // Prevent scrolling when the menu is open on mobile
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isMenuOpen]);
+
   return (
-    <div className="relative bg-white shadow-md">
-      <ScrollArea className="max-w-[100%]">
+    <div
+      className={cn(
+        "bg-white shadow-md z-50",
+        isHomepage ? "fixed top-0 left-0 w-full" : "relative"
+      )}
+    >
+      <ScrollArea className={cn("max-w-[100%]", isHomepage && "overflow-hidden")}>
         <div
           className={cn(
             "flex px-4 py-4 items-center justify-between lg:space-x-8",
@@ -49,13 +51,7 @@ export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElem
         >
           {/* Logo Section */}
           <Link href="/" className="flex items-center space-x-4 px-4">
-            <Image
-              src="/Instient Logo.svg" // Adjust the logo file name and path if needed
-              alt="Logo"
-              width={100} // Adjust width
-              height={50} // Adjust height
-              priority
-            />
+            <Image src="/Instient Logo.svg" alt="Logo" width={100} height={50} priority />
           </Link>
 
           {/* Hamburger Menu Button for Mobile */}
@@ -70,13 +66,8 @@ export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElem
           {/* Navigation Section for Desktop */}
           <div className="hidden lg:flex flex-1 justify-start items-center space-x-1">
             {routes.map((route) => (
-              <NavLink
-                key={route.href}
-                route={route}
-                isActive={pathname === route.href}
-              />
+              <NavLink key={route.href} route={route} isActive={pathname === route.href} />
             ))}
-            {/* Contact Us beside About Us */}
             <Link
               href="/contactus"
               className={cn(
@@ -94,11 +85,7 @@ export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElem
         {isMenuOpen && (
           <div className="lg:hidden flex flex-col space-y-2 px-6 py-4 text-left">
             {routes.map((route) => (
-              <NavLink
-                key={route.href}
-                route={route}
-                isActive={pathname === route.href}
-              />
+              <NavLink key={route.href} route={route} isActive={pathname === route.href} />
             ))}
             <Link
               href="/contactus"
@@ -113,19 +100,14 @@ export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElem
           </div>
         )}
 
-        <ScrollBar orientation="horizontal" className="invisible" />
+        {/* Hide ScrollBar on Homepage */}
+        {!isHomepage && <ScrollBar orientation="horizontal" className="invisible" />}
       </ScrollArea>
     </div>
   );
 }
 
-function NavLink({
-  route,
-  isActive,
-}: {
-  route: { name: string; href: string };
-  isActive: boolean;
-}) {
+function NavLink({ route, isActive }: { route: { name: string; href: string }; isActive: boolean }) {
   return (
     <Link
       href={route.href}

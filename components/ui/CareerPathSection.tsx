@@ -16,7 +16,7 @@ interface CareerItem {
     };
   }
 
-export function CareerSection() {
+export function CareerPathSection() {
   const [careerData, setCareerData] = useState<CareerItem[]>([]);
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
@@ -30,7 +30,7 @@ export function CareerSection() {
         redirect: "follow" as RequestRedirect, // Ensure proper type
     };
 
-    fetch("https://dev-api.instient.com/api/career-instients?populate=*", requestOptions)
+    fetch("https://dev-api.instient.com/api/career-paths?populate=*", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setCareerData(result.data);
@@ -40,11 +40,8 @@ export function CareerSection() {
 
   return (
     <div className="py-10 font-ubuntu relative sm:mt-0">
-
     {/* Parent Container */}
     <div className="flex flex-wrap justify-center sm:justify-start gap-28 mt-16 sm:mt-0">
-
-        
       {careerData.map((item) => (
         <div key={item.id} className="relative mb-14 sm:mb-14 w-full sm:w-[407px]">
           {/* Background Underlap Image */}
@@ -64,7 +61,7 @@ export function CareerSection() {
               </p>
             </CardContent>
             <CardFooter className="flex justify-end sm:py-6 pb-6">
-              <Link href={`/careers/${item.link}`} passHref>
+              <Link href={`/careers/career-path/${item.link}`} passHref>
               <Button className="text-black border-black rounded-full flex items-center font-ubuntu gap-2 
                   hover:bg-gray-200  hover:border-gray-300 transition-all duration-300 ease-in-out transform hover:scale-105">
                 <ArrowRight className="w-4 h-4" />

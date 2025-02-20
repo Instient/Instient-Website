@@ -167,7 +167,7 @@ export default function About() {
                 width={407} // Adjust based on your design
                 height={300} // Adjust based on your design
               />
-            <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-16 w-[90%] mx-auto">
+            <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-28 w-[90%] mx-auto">
               <CardContent>
                 <p className="text-2xl py-3 font-ubuntu font-extralight">{aboutData.Content3_Card1}</p>
               </CardContent>
@@ -191,7 +191,7 @@ export default function About() {
                 width={407} // Adjust based on your design
                 height={300} // Adjust based on your design
               />
-            <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-16 w-[90%] mx-auto">
+            <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-28 w-[90%] mx-auto">
               <CardContent>
                 <p className="text-2xl py-3 font-ubuntu font-extralight">{aboutData.Content3_Card2}</p>
               </CardContent>
@@ -215,7 +215,7 @@ export default function About() {
                 width={407} // Adjust based on your design
                 height={300} // Adjust based on your design
               />
-            <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-16 w-[90%] mx-auto">
+            <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-28 w-[90%] mx-auto">
               <CardContent>
                 <p className="text-2xl py-3 font-ubuntu font-extralight">{aboutData.Content3_Card3}</p>
               </CardContent>

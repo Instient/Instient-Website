@@ -3,15 +3,13 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import CareerPathBreadcrumb from "./CareerPathBreadcrumb"; // Importing CareerPathBreadcrumb
 
-const careersPages = [
-  { name: "Career Path", href: "/careers/career-path" }, // Now a parent page
-  { name: "Life at Instient", href: "/careers/life-at-instients" },
-  { name: "Why Join Instient", href: "/careers/why-join-instients"},
+const careerPathPages = [
+  { name: "Early Program", href: "/careers/career-path/internships" },
+  { name: "Experienced", href: "/careers/career-path/job-openings" },
 ];
 
-export default function CareersBreadcrumb() {
+export default function CareerPathBreadcrumb() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -48,18 +46,14 @@ export default function CareersBreadcrumb() {
           onMouseLeave={() => setIsOpen(false)} // Close when leaving dropdown
           ref={dropdownRef}
         >
-          {careersPages.map((page) => (
-            <div key={page.href} className="relative">
-              <Link
-                href={page.href}
-                className="block px-4 py-2 text-sm text-black hover:bg-gray-200"
-              >
-                {page.name}
-              </Link>
-
-              {/* Insert CareerPathBreadcrumb under "Career Path" */}
-              {page.hasDropdown && <CareerPathBreadcrumb />}
-            </div>
+          {careerPathPages.map((page) => (
+            <Link
+              key={page.href}
+              href={page.href}
+              className="block px-4 py-2 text-sm text-black hover:bg-gray-200"
+            >
+              {page.name}
+            </Link>
           ))}
         </div>
       )}

@@ -30,7 +30,7 @@ export default async function TermsOfUsePage() {
   }
 
   // Destructure attributes safely
-  const { Title, header, Description, content1, content1_answer, content2, content2_answer, conclusion, Image: { url } = {},  } = termsOfUseData;
+  const { Title, header, Description, content1, content1_answer, content2, content2_answer,content3, content3_answer, content4, content4_answer,content5, content5_answer, content6, content6_answer, content7, content7_answer, content8, content8_answer, content9, content9_answer, content10, content10_answer,conclusion, Image: { url } = {},  } = termsOfUseData;
 
   return (
     <main>
@@ -62,6 +62,15 @@ export default async function TermsOfUsePage() {
 
       <Section contentTitle={content1} contentAnswer={content1_answer} />
       <Section contentTitle={content2} contentAnswer={content2_answer} />
+      <Section contentTitle={content3} contentAnswer={content3_answer} />
+      <Section contentTitle={content4} contentAnswer={content4_answer} />
+      <Section contentTitle={content5} contentAnswer={content5_answer} />
+      <Section contentTitle={content6} contentAnswer={content6_answer} />
+      <Section contentTitle={content7} contentAnswer={content7_answer} />
+      <Section contentTitle={content8} contentAnswer={content8_answer} />
+      <Section contentTitle={content9} contentAnswer={content9_answer} />
+      <Section contentTitle={content10} contentAnswer={content10_answer} />
+    
 
       <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-10 mb-10">
         <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">Conclusion</h2>

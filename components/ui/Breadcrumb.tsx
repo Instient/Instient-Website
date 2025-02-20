@@ -2,16 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronRight, ChevronDown, ArrowRight, ChevronLeft } from "lucide-react";
+import { ChevronRight, ChevronLeft, ArrowRight } from "lucide-react";
 import ServicesBreadcrumb from "./ServicesBreadcrumb";
 import CaseStudiesBreadcrumb from "./CaseStudiesBreadcrumb";
 import NewsBreadcrumb from "./NewsBreadcrumb";
 import AboutUsBreadcrumb from "./AboutUsBreadcrumb";
 import CareersBreadcrumb from "./CareersBreadcrumb";
-import { useState } from "react"; // Import useState for state management
-import GetInTouch from "./GetInTouch"; // Import GetInTouch component
+import CareerPathBreadcrumb from "./CareerPathBreadcrumb";
+import { useState } from "react";
+import GetInTouch from "./GetInTouch";
 
-const routeMap: Record<string, string> = {
+const routeMap = {
   services: "Services",
   casestudies: "Case Studies",
   careers: "Careers",
@@ -23,17 +24,12 @@ const routeMap: Record<string, string> = {
 export default function Breadcrumb() {
   const pathname = usePathname();
   const segments = pathname.split("/").filter((segment) => segment !== "");
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // Add state to control the dialog visibility
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const openDialog = () => {
-    setIsDialogOpen(true); // Open the dialog
-  };
+  const openDialog = () => setIsDialogOpen(true);
+  const closeDialog = () => setIsDialogOpen(false);
 
-  const closeDialog = () => {
-    setIsDialogOpen(false); // Close the dialog
-  };
-
-  if (pathname === "/") return null; // Hide breadcrumb on home page
+  if (pathname === "/") return null;
 
   const previousPage =
     segments.length > 1
@@ -43,14 +39,7 @@ export default function Breadcrumb() {
   const previousLabel =
     segments.length > 1
       ? routeMap[segments[segments.length - 2]] ||
-        decodeURIComponent(segments[segments.length - 2])
-          .split("-")
-          .map((word) =>
-            ["aboutus", "contactus"].includes(segments[segments.length - 2].toLowerCase())
-              ? word.charAt(0).toLowerCase() + word.slice(1)
-              : word.charAt(0).toUpperCase() + word.slice(1)
-          )
-          .join(" ")
+        formatBreadcrumbText(segments[segments.length - 2])
       : "Home";
 
   return (
@@ -62,30 +51,19 @@ export default function Breadcrumb() {
           {segments.length > 0 && <ChevronRight className="w-5 h-5" />}
           {segments.map((segment, index) => {
             const href = "/" + segments.slice(0, index + 1).join("/");
-            const label =
-              routeMap[segment.toLowerCase()] ||
-              decodeURIComponent(segment)
-                .split("-")
-                .map((word) =>
-                  ["aboutus", "contactus"].includes(segment.toLowerCase())
-                    ? word.charAt(0).toLowerCase() + word.slice(1)
-                    : word.charAt(0).toUpperCase() + word.slice(1)
-                )
-                .join(" ");
+            const label = routeMap[segment.toLowerCase()] || formatBreadcrumbText(segment);
 
             return (
               <div key={href} className="relative flex items-center space-x-2">
                 <Link href={href} className="hover:text-gray-700 font-medium">
                   {label}
                 </Link>
-
-                {/* Dynamic Subpage Dropdowns */}
                 {segment === "services" && <ServicesBreadcrumb />}
                 {segment === "casestudies" && <CaseStudiesBreadcrumb />}
                 {segment === "news" && <NewsBreadcrumb />}
                 {segment === "aboutus" && <AboutUsBreadcrumb />}
                 {segment === "careers" && <CareersBreadcrumb />}
-
+                {segment === "career-path" && <CareerPathBreadcrumb />}
                 {index < segments.length - 1 && <ChevronRight className="w-5 h-5" />}
               </div>
             );
@@ -94,10 +72,7 @@ export default function Breadcrumb() {
 
         {/* Mobile View */}
         <div className="md:hidden flex items-center w-full justify-between">
-          <Link
-            href={previousPage}
-            className="flex items-center text-base sm:text-sm font-medium text-black"
-          >
+          <Link href={previousPage} className="flex items-center text-base sm:text-sm font-medium text-black">
             <ChevronLeft className="w-5 h-5" />
             {previousLabel}
           </Link>
@@ -118,11 +93,27 @@ export default function Breadcrumb() {
             Get in Touch <ArrowRight className="w-4 h-4 ml-2" />
           </span>
         </Link>
-
       </nav>
-
-      {/* GetInTouch Dialog Component */}
       <GetInTouch isOpen={isDialogOpen} onClose={closeDialog} />
     </>
+  );
+}
+
+function formatBreadcrumbText(segment) {
+  const exceptions = {
+    "job-openings": "Experienced",
+    internships: "Early Program",
+  };
+
+  return (
+    exceptions[segment.toLowerCase()] ||
+    decodeURIComponent(segment)
+      .split("-")
+      .map((word) =>
+        ["aboutus", "contactus"].includes(segment.toLowerCase())
+          ? word.charAt(0).toLowerCase() + word.slice(1)
+          : word.charAt(0).toUpperCase() + word.slice(1)
+      )
+      .join(" ")
   );
 }
