@@ -9,6 +9,7 @@ const careersPages = [
   { name: "Career Path", href: "/careers/career-path" }, // Now a parent page
   { name: "Life at Instient", href: "/careers/life-at-instients" },
   { name: "Why Join Instient", href: "/careers/why-join-instients"},
+  { name: "Meet our people", href: "/careers/meet-our-people"},
 ];
 
 export default function CareersBreadcrumb() {

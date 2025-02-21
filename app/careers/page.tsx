@@ -108,6 +108,43 @@ export default function Careers() {
           
       <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-16 mb-10 ">
         <h2 className="text-3xl font-ubuntu  sm:text-left px-6  sm:mb-16">{careerData.Content_Title}</h2>
+
+        <svg
+          className="absolute mt-40 left-0 w-[80%] sm:w-[60%] h-auto -z-10 opacity-40"
+          viewBox="0 0 800 200"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 50 C150 100, 300 0, 450 50 S 700 150, 800 100"
+            stroke="#3c83c1"
+            strokeWidth="3"
+            fill="transparent"
+          />
+          <polygon
+            points="780,95 800,100 780,105"
+            fill="#3c83c1"
+          />
+        </svg>
+
+        <svg
+          className="absolute mt-96 left-0 w-[80%] sm:w-[60%] h-auto -z-10 opacity-40"
+          viewBox="0 0 800 200"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 50 C150 100, 300 0, 450 50 S 700 150, 800 100"
+            stroke="#3c83c1"
+            strokeWidth="3"
+            fill="transparent"
+          />
+          <polygon
+            points="780,95 800,100 780,105"
+            fill="#3c83c1"
+          />
+        </svg>
+
         <CareerSection/>
 
       </div>
