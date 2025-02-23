@@ -38,7 +38,7 @@ export function Navbar({ className, ...props }: React.HTMLAttributes<HTMLDivElem
     <div
       className={cn(
         "bg-white shadow-md z-50",
-        isHomepage ? "fixed top-0 left-0 w-full" : "relative"
+        isHomepage ? "sticky top-0" : "relative"
       )}
     >
       <ScrollArea className={cn("max-w-[100%]", isHomepage && "overflow-hidden")}>

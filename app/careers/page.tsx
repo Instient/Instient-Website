@@ -128,10 +128,11 @@ export default function Careers() {
         </svg>
 
         <svg
-          className="absolute mt-96 left-0 w-[80%] sm:w-[60%] h-auto -z-10 opacity-40"
+          className="absolute mt-96 right-0 w-[80%] sm:w-[60%] h-auto -z-10 opacity-40"
           viewBox="0 0 800 200"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          style={{ transform: "scale(-1,1)", transformOrigin: "center" }}
         >
           <path
             d="M0 50 C150 100, 300 0, 450 50 S 700 150, 800 100"
@@ -144,6 +145,7 @@ export default function Careers() {
             fill="#3c83c1"
           />
         </svg>
+
 
         <CareerSection/>
 

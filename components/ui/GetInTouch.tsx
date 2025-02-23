@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
@@ -27,8 +27,36 @@ export default function GetInTouch({ isOpen, onClose }: GetInTouchProps): JSX.El
   const [purpose, setPurpose] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [isChecked, setIsChecked] = React.useState(false);
+  const [industries, setIndustries] = React.useState<string[]>([]);
+  const [purposes, setPurposes] = React.useState<string[]>([]);
 
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
+
+  React.useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        const response = await fetch("https://dev-api.instient.com/api/getintouches", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${apiToken}`,
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          const uniqueIndustries = [...new Set(data.data.map((item: any) => item.industry))];
+          const uniquePurposes = [...new Set(data.data.map((item: any) => item.purpose))];
+          setIndustries(uniqueIndustries);
+          setPurposes(uniquePurposes);
+        } else {
+          console.error("Error fetching options:", data);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+    fetchOptions();
+  }, [apiToken]);
 
   const isFormValid = firstName && lastName && email && jobTitle && company && industry && purpose && message && isChecked;
 
@@ -76,73 +104,38 @@ export default function GetInTouch({ isOpen, onClose }: GetInTouchProps): JSX.El
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent
-          className="w-full sm:w-[90%] md:w-[80%] lg:w-[60%] max-w-lg py-5 px-4 font-ubuntu flex justify-center max-h-[90vh] overflow-y-auto"
-          aria-describedby="dialog-description"
-        >
-          {/* Hidden description for accessibility */}
-          <p id="dialog-description" className="sr-only">
-            Fill out the form to get in touch with our team.
-          </p>
-
-          <div className="w-full space-y-3">
-            <DialogHeader className="flex-row items-center justify-between space-x-4 px-3 mt-4">
-              <DialogTitle className="text-lg font-medium">Get in touch</DialogTitle>
-              <img src="/Instient Logo.svg" alt="Logo" className="w-1/6 h-1/6" />
-            </DialogHeader>
-
-
+      <DialogContent className="w-full sm:w-[90%] md:w-[80%] lg:w-[60%] max-w-lg py-5 px-4 font-ubuntu flex justify-center max-h-[90vh] overflow-y-auto">
+        <div className="w-full space-y-3">
+          <DialogHeader className="flex-row items-center justify-between space-x-4 px-3 mt-4">
+            <DialogTitle className="text-lg font-medium">Get in touch</DialogTitle>
+            <img src="/Instient Logo.svg" alt="Logo" className="w-1/6 h-1/6" />
+          </DialogHeader>
           <div className="px-3">
             <form className="space-y-3 pb-6" onSubmit={handleSubmit}>
-              
-                <label className="block text-sm font-medium mb-1">First Name <span className="text-red-500">*</span></label>
-                <Input required value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full" />
-              
-              
-                <label className="block text-sm font-medium mb-1">Last Name <span className="text-red-500">*</span></label>
-                <Input required value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full" />
-              
+              <label className="block text-sm font-medium mb-1">First Name <span className="text-red-500">*</span></label>
+              <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+              <label className="block text-sm font-medium mb-1">Last Name <span className="text-red-500">*</span></label>
+              <Input value={lastName} onChange={(e) => setLastName(e.target.value)} required />
               <label className="block text-sm font-medium mb-1">Email <span className="text-red-500">*</span></label>
-              <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-              
+              <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               <label className="block text-sm font-medium mb-1">Job Title <span className="text-red-500">*</span></label>
-              <Input required value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} />
-              
-              <label className="block text-sm font-medium mb-1">Phone</label>
-              <Input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
-
-              <label className="block text-sm font-medium mb-1">Company/Organization <span className="text-red-500">*</span></label>
-              <Input required value={company} onChange={(e) => setCompany(e.target.value)} />
-
-              <label className="block text-sm font-medium">Industry <span className="text-red-500">*</span></label>
+              <Input value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} required />
+              <label className="block text-sm font-medium mb-1">Phone </label>
+              <Input type="phone" placeholder="Optional" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+              <label className="block text-sm font-medium mb-1">Company <span className="text-red-500">*</span></label>
+              <Input type="company" value={company} onChange={(e) => setCompany(e.target.value)} required />
+              <label className="block text-sm font-medium mb-1">Industry <span className="text-red-500">*</span></label>
               <Select value={industry} onValueChange={setIndustry}>
-                <SelectTrigger className="w-full border border-gray-300 p-2 rounded-md ubuntu-regular">
-                  <SelectValue placeholder="Select Industry" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Tech">Tech</SelectItem>
-                  <SelectItem value="Finance">Finance</SelectItem>
-                  <SelectItem value="Healthcare">Healthcare</SelectItem>
-                  <SelectItem value="Education">Education</SelectItem>
-                </SelectContent>
+                <SelectTrigger><SelectValue placeholder="Select Industry" /></SelectTrigger>
+                <SelectContent>{industries.map((ind) => (<SelectItem key={ind} value={ind}>{ind}</SelectItem>))}</SelectContent>
               </Select>
-
-              <label className="block text-sm font-medium">Purpose of contact <span className="text-red-500">*</span></label>
-              <Select value={purpose} onValueChange={setPurpose}> 
-                <SelectTrigger className="w-full border border-gray-300 p-2 rounded-md ubuntu-regular">
-                  <SelectValue placeholder="Select Purpose" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Alumni">Alumni</SelectItem>
-                  <SelectItem value="Business">Business</SelectItem>
-                  <SelectItem value="Careers">Careers</SelectItem>
-                  <SelectItem value="Partner Alliance">Partner Alliance</SelectItem>
-                </SelectContent>
+              <label className="block text-sm font-medium mb-1">Purpose of contact <span className="text-red-500">*</span></label>
+              <Select value={purpose} onValueChange={setPurpose}>
+                <SelectTrigger><SelectValue placeholder="Select Purpose" /></SelectTrigger>
+                <SelectContent>{purposes.map((pur) => (<SelectItem key={pur} value={pur}>{pur}</SelectItem>))}</SelectContent>
               </Select>
-
               <label className="block text-sm font-medium mb-1">Message <span className="text-red-500">*</span></label>
-              <Textarea required value={message} onChange={(e) => setMessage(e.target.value)} />
-
+              <Textarea placeholder="Message" value={message} onChange={(e) => setMessage(e.target.value)} required />
               <div className="flex items-center space-x-2">
                 <Checkbox checked={isChecked} onCheckedChange={() => setIsChecked((prev) => !prev)} />
                 <label className="text-xs font-normal leading-none">
