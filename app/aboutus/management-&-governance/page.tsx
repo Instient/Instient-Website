@@ -6,7 +6,7 @@ async function fetchManagementAndGovernancePageData() {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   const response = await fetch(
-    `https://dev-api.instient.com/api/managementandgovernancepage?populate=*`,
+    `https://dev-api.instient.ai/api/managementandgovernancepage?populate=*`,
     {
       headers: {
         Authorization: `Bearer ${apiToken}`,
@@ -51,7 +51,7 @@ export default async function ManagementAndGovernancePage() {
     <main>
       <div className="w-full h-[425px] sm:h-[450px]  p-6 font-ubuntu relative">
           <Image
-              src={`https://dev-api.instient.com${url}`} // Dynamically set the full image URL from the API
+              src={`https://dev-api.instient.ai${url}`} // Dynamically set the full image URL from the API
               alt="Career Image"
               fill
               priority

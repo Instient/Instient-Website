@@ -28,7 +28,7 @@ export function CaseStudySection() {
       redirect: "follow" as RequestRedirect,
     };
 
-    fetch("https://dev-api.instient.com/api/casestudies", requestOptions)
+    fetch("https://dev-api.instient.ai/api/casestudies", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setCaseStudyData(result.data);

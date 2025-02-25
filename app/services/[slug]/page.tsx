@@ -6,7 +6,7 @@ async function fetchServiceData(slug: string) {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   const response = await fetch(
-    `https://dev-api.instient.com/api/service-instients?filters[slug][$eq]=${slug}&populate=*`,
+    `https://dev-api.instient.ai/api/service-instients?filters[slug][$eq]=${slug}&populate=*`,
     {
       headers: {
         Authorization: `Bearer ${apiToken}`,
@@ -53,7 +53,7 @@ export default async function ServiceSlugPage({ params }: { params: { slug: stri
 
         
         <Image
-          src={url ? `https://dev-api.instient.com${url}` : '/default-image.png'} // Use default image if url is undefined
+          src={url ? `https://dev-api.instient.ai${url}` : '/default-image.png'} // Use default image if url is undefined
           alt="Career Image"
           fill
           priority

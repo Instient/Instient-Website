@@ -33,7 +33,7 @@ export default function Contact() {
   useEffect(() => {
     const fetchContactData = async () => {
       try {
-        const response = await fetch("https://dev-api.instient.com/api/contactpage?populate=*", {
+        const response = await fetch("https://dev-api.instient.ai/api/contactpage?populate=*", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           },
@@ -69,7 +69,7 @@ export default function Contact() {
       <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu relative">
         {/* Background Image */}
         <Image 
-         src={`https://dev-api.instient.com${contactData.Image.url}`} // Dynamically set the full image URL from the API
+         src={`https://dev-api.instient.ai${contactData.Image.url}`} // Dynamically set the full image URL from the API
          alt="Career Image"
          fill
          priority

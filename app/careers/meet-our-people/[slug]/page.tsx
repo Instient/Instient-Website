@@ -5,7 +5,7 @@ async function fetchMemberData(slug) {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   const response = await fetch(
-    `https://dev-api.instient.com/api/meetourpeople-instients?filters[slug][$eq]=${slug}&populate=*`,
+    `https://dev-api.instient.ai/api/meetourpeople-instients?filters[slug][$eq]=${slug}&populate=*`,
     {
       headers: {
         Authorization: `Bearer ${apiToken}`,
@@ -53,7 +53,7 @@ export default async function MeetOurPeopleSlugPage({ params }) {
         {/* Profile Image - Larger for Mobile */}
         <div className="relative w-60 h-96 sm:w-80 sm:h-96 mt-5 rounded sm:mt-44 bg-white shadow-2xl overflow-hidden lg:-translate-y-8 lg:-translate-x-8 z-10 sm:rounded-lg">
           <Image
-            src={url ? `https://dev-api.instient.com${url}` : "/default-image.png"}
+            src={url ? `https://dev-api.instient.ai${url}` : "/default-image.png"}
             alt={`${Name}'s Image`}
             layout="fill"
             objectFit="cover"

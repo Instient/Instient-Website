@@ -42,7 +42,7 @@ export default function Home() {
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
-        const response = await fetch("https://dev-api.instient.com/api/homepage?populate=*", {
+        const response = await fetch("https://dev-api.instient.ai/api/homepage?populate=*", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           },
@@ -149,7 +149,7 @@ export default function Home() {
             </div>
 
             <Image
-                src={`https://dev-api.instient.com${homeData.Content_Image.url}`}
+                src={`https://dev-api.instient.ai${homeData.Content_Image.url}`}
                 alt="Career Image"
                 width={807} // Set a fixed width
                 height={300} // Set a fixed height

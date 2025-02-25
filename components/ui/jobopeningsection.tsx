@@ -30,7 +30,7 @@ export function JobOpeningSection() {
       redirect: "follow" as RequestRedirect,
     };
 
-    fetch("https://dev-api.instient.com/api/jobopenings?populate=*", requestOptions)
+    fetch("https://dev-api.instient.ai/api/jobopenings?populate=*", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setJobOpeningsData(result.data);
@@ -50,7 +50,7 @@ export function JobOpeningSection() {
           <div key={job.id} className="relative mb-14 sm:mb-14 w-full sm:w-[407px]">
             {/* Background Underlap */}
                 <Image 
-                  src={`https://dev-api.instient.com${job.Image.url}`} // Dynamically set the full image URL from the API
+                  src={`https://dev-api.instient.ai${job.Image.url}`} // Dynamically set the full image URL from the API
                   alt="Career Image"
                   fill
                   priority

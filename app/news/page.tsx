@@ -25,7 +25,7 @@ export default function News() {
   useEffect(() => {
     const fetchNewsData = async () => {
       try {
-        const response = await fetch("https://dev-api.instient.com/api/newspage?populate=*", {
+        const response = await fetch("https://dev-api.instient.ai/api/newspage?populate=*", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           }
@@ -61,7 +61,7 @@ export default function News() {
       <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu relative">
         {/* Background Image */}
           <Image
-            src={`https://dev-api.instient.com${newsData.Image.url}`} // Dynamically set the full image URL from the API
+            src={`https://dev-api.instient.ai${newsData.Image.url}`} // Dynamically set the full image URL from the API
             alt="Career Image"
             fill
             priority

@@ -37,7 +37,7 @@ export function ContactSection() {
       redirect: "follow" as RequestRedirect,
     };
     
-    fetch("https://dev-api.instient.com/api/contacts", requestOptions)
+    fetch("https://dev-api.instient.ai/api/contacts", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setContactData(result.data);

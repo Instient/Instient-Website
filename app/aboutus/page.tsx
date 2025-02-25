@@ -49,7 +49,7 @@ export default function About() {
     useEffect(() => {
       const fetchAboutData = async () => {
         try {
-          const response = await fetch("https://dev-api.instient.com/api/aboutpage?populate=*", {
+          const response = await fetch("https://dev-api.instient.ai/api/aboutpage?populate=*", {
             headers: {
               Authorization: `Bearer ${apiToken}`,
             },
@@ -85,7 +85,7 @@ export default function About() {
       <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu relative">
         {/* Background Image */}
         <Image
-          src={`https://dev-api.instient.com${aboutData.Image.url}`} // Dynamically set the full image URL from the API
+          src={`https://dev-api.instient.ai${aboutData.Image.url}`} // Dynamically set the full image URL from the API
           alt="About Us Image"
           fill
           priority
@@ -121,7 +121,7 @@ export default function About() {
             </div>
 
             <Image
-              src={`https://dev-api.instient.com${aboutData.Content_Image.url}`}
+              src={`https://dev-api.instient.ai${aboutData.Content_Image.url}`}
               alt="Career Image"
               width={807} // Set a fixed width
               height={300} // Set a fixed height
@@ -159,9 +159,9 @@ export default function About() {
     <div className="sm:px-6 px-3 py-4 mt-2 sm:mt-10 sm:mb-16 mb-10">
       <div className="py-10 font-ubuntu relative sm:mt-0">
         <div className="flex flex-col sm:flex-row justify-between sm:justify-start items-center relative z-10 mt-24 sm:mt-0 gap-32">
-          <div className="relative w-[90%] sm:w-[407px]">
+          <div className="relative mt-20 w-[90%] sm:w-[407px]">
               <Image
-                src={`https://dev-api.instient.com${aboutData.Card1_Image.url}`} // Assuming item has BackgroundImage property
+                src={`https://dev-api.instient.ai${aboutData.Card1_Image.url}`} // Assuming item has BackgroundImage property
                 alt="Career Background"
                 className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"
                 width={407} // Adjust based on your design
@@ -185,7 +185,7 @@ export default function About() {
 
           <div className="relative w-[90%] sm:w-[407px]">
              <Image
-                src={`https://dev-api.instient.com${aboutData.Card2_Image.url}`} // Assuming item has BackgroundImage property
+                src={`https://dev-api.instient.ai${aboutData.Card2_Image.url}`} // Assuming item has BackgroundImage property
                 alt="Career Background"
                 className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"
                 width={407} // Adjust based on your design
@@ -207,9 +207,9 @@ export default function About() {
             </Card>
           </div>
 
-          <div className="relative w-[90%] sm:w-[407px]">
+          <div className="relative mt-20 w-[90%] sm:w-[407px]">
               <Image
-                src={`https://dev-api.instient.com${aboutData.Card3_Image.url}`} // Assuming item has BackgroundImage property
+                src={`https://dev-api.instient.ai${aboutData.Card3_Image.url}`} // Assuming item has BackgroundImage property
                 alt="Career Background"
                 className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md"
                 width={407} // Adjust based on your design

@@ -6,7 +6,7 @@ async function fetchWhyJoinPageData() {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   const response = await fetch(
-    `https://dev-api.instient.com/api/whyjoininstient?populate=*`, 
+    `https://dev-api.instient.ai/api/whyjoininstient?populate=*`, 
     {
       headers: {
         Authorization: `Bearer ${apiToken}`,
@@ -36,7 +36,7 @@ export default async function WhyJoinInstientPage() {
     <main>
       <div className="w-full h-[425px] sm:h-[450px]  p-6 font-ubuntu relative">
          <Image
-                        src={`https://dev-api.instient.com${url}`}
+                        src={`https://dev-api.instient.ai${url}`}
                         alt="Career Image"
                         fill
                         priority

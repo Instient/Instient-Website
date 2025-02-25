@@ -12,7 +12,7 @@ interface Subpage {
 async function fetchServices() {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
-  const response = await fetch("https://dev-api.instient.com/api/service-instients?populate=*", {
+  const response = await fetch("https://dev-api.instient.ai/api/service-instients?populate=*", {
     headers: {
       Authorization: `Bearer ${apiToken}`,
     },

@@ -28,7 +28,7 @@ export default function Careers() {
     useEffect(() => {
       const fetchCareerData = async () => {
         try {
-          const response = await fetch("https://dev-api.instient.com/api/careerpage?populate=*", {
+          const response = await fetch("https://dev-api.instient.ai/api/careerpage?populate=*", {
             headers: {
               Authorization: `Bearer ${apiToken}`,
             },
@@ -65,7 +65,7 @@ export default function Careers() {
       <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu relative">
         {/* Background Image */}
         <Image
-          src={`https://dev-api.instient.com${careerData.Image.url}`} // Dynamically set the full image URL from the API
+          src={`https://dev-api.instient.ai${careerData.Image.url}`} // Dynamically set the full image URL from the API
           alt="Career Image"
           fill
           priority

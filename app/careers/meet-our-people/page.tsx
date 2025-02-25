@@ -24,7 +24,7 @@ export default function MeetOurPeople() {
   useEffect(() => {
     const fetchMeetOurPeopleData = async () => {
       try {
-        const response = await fetch("https://dev-api.instient.com/api/meetourpeoplepage?populate=*", {
+        const response = await fetch("https://dev-api.instient.ai/api/meetourpeoplepage?populate=*", {
           headers: {
             Authorization: `Bearer ${apiToken}`,
           },
@@ -58,7 +58,7 @@ export default function MeetOurPeople() {
     <main>
       <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu relative">
         <Image
-          src={`https://dev-api.instient.com${meetOurPeopleData.Image.url}`}
+          src={`https://dev-api.instient.ai${meetOurPeopleData.Image.url}`}
           alt="Meet Our People Image"
           fill
           priority
