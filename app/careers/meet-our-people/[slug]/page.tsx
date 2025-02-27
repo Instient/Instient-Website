@@ -1,7 +1,7 @@
 import { Footer } from "@/components/ui/footer";
 import Image from "next/image";
 
-async function fetchMemberData(slug) {
+async function fetchMemberData(slug: string) {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   const response = await fetch(
@@ -18,9 +18,14 @@ async function fetchMemberData(slug) {
   return data?.data?.[0] ?? null;
 }
 
-export default async function MeetOurPeopleSlugPage({ params }) {
-  const { slug } = await params;
+interface Params {
+  slug: string;
+}
+
+export default async function MeetOurPeopleSlugPage({ params }: { params: Params }) {
+  const { slug } = params; // Now the slug is correctly typed
   const memberData = await fetchMemberData(slug);
+
 
   if (!memberData) {
     return <p className="text-center mt-20">Member not found or incomplete data.</p>;

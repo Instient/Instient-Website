@@ -56,10 +56,10 @@ export default async function WhoWeArePage() {
 
       <section className="bg-gray-600 text-white mb-10">
         <div className="container font-ubuntu mx-auto flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 px-6 ">
+          <div className="md:w-1/2 px-6">
             <h2 className="text-4xl px-6 font-bold mb-8">{Banner_Title}</h2>
             <p className="text-lg px-6 text-white mb-28">{Banner_Description}</p>
-            <Link href="/news/2024-vietnam-investor-exposition">
+            <Link href="/aboutus/who-we-are/values-and-ethics">
               <Button className="relative text-white border-white ml-5 border-[1.5px] rounded-full flex items-center font-ubuntu gap-2 overflow-hidden transition-all duration-300 ease-out group">
                 <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
                 <span className="relative z-10 flex items-center gap-2 hover:text-white hover:border-gray-300">
@@ -106,27 +106,27 @@ async function ExploreInstient() {
   if (!exploreData) return <p className="text-center mt-20">No data available.</p>;
 
   const cards = [
-    { title: exploreData.Card1_Title, slug: exploreData.card1_slug, imageUrl: exploreData.Card1_Image?.url },
-    { title: exploreData.Card2_Title, slug: exploreData.card2_slug, imageUrl: exploreData.Card2_Image?.url },
-    { title: exploreData.Card3_Title, slug: exploreData.card3_slug, imageUrl: exploreData.Card3_Image?.url },
+    { title: exploreData.Card1_Title, slug: "/careers/life-at-instients", imageUrl: exploreData.Card1_Image?.url },
+    { title: exploreData.Card2_Title, slug: "/careers/why-join-instients", imageUrl: exploreData.Card2_Image?.url },
+    { title: exploreData.Card3_Title, slug: "/news", imageUrl: exploreData.Card3_Image?.url },
   ];
 
   return (
     <section className="py-10 font-ubuntu relative">
-      <h2 className="text-3xl font-ubuntu  sm:text-left px-12  sm:mb-24">Explore Instient</h2>
-        <div className="flex flex-wrap justify-center px-8 sm:justify-start gap-28 mt-16">
-          {cards.map((card, index) => (
-            <div key={index} className="relative mb-14 sm:mb-14 w-full sm:w-[407px]">
-              {card.imageUrl && <Image src={`https://dev-api.instient.ai${card.imageUrl}`} alt={card.title} width={407} height={300} className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md" />}
-              <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-28 w-[90%] mx-auto">
-                <CardContent><p className="text-2xl py-3 font-ubuntu font-extralight">{card.title}</p></CardContent>
-                <CardFooter className="flex justify-end sm:py-6 pb-6">
-                  <Link href={`${card.slug}`}><Button className="text-black border-black rounded-full flex items-center font-ubuntu gap-2 hover:bg-gray-200 hover:border-gray-300 transition-all duration-300 ease-in-out"><ArrowRight className="w-4 h-4" /></Button></Link>
-                </CardFooter>
-              </Card>
-            </div>
-          ))}
-        </div>
+      <h2 className="text-3xl font-ubuntu sm:text-left px-12 sm:mb-24">Explore Instient</h2>
+      <div className="flex flex-wrap justify-center px-8 sm:justify-start gap-28 mt-16">
+        {cards.map((card, index) => (
+          <div key={index} className="relative mb-14 sm:mb-14 w-full sm:w-[407px]">
+            {card.imageUrl && <Image src={`https://dev-api.instient.ai${card.imageUrl}`} alt={card.title} width={407} height={300} className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md" />}
+            <Card className="relative py-4 shadow-xl rounded-lg bg-white z-10 mt-28 w-[90%] mx-auto">
+              <CardContent><p className="text-2xl py-3 font-ubuntu font-extralight">{card.title}</p></CardContent>
+              <CardFooter className="flex justify-end sm:py-6 pb-6">
+                <Link href={card.slug}><Button className="text-black border-black rounded-full flex items-center font-ubuntu gap-2 hover:bg-gray-200 hover:border-gray-300 transition-all duration-300 ease-in-out"><ArrowRight className="w-4 h-4" /></Button></Link>
+              </CardFooter>
+            </Card>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

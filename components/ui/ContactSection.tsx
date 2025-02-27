@@ -13,13 +13,13 @@ interface ContactItem {
   Content_Desc2?: string;
   Content_Desc3?: string;
   Content_Desc4?: string; // New field for phone number
-  Content_Link: string;
+  Content_Link: string | undefined;
   Content_Button: string;
   Content2_Desc1?: string;
   Content2_Desc2?: string;
   Content2_Desc3?: string;
   Content2_Desc4?: string; // New field for phone number
-  Content2_Link?: string;
+  Content2_Link?: string | undefined;
   content2_Button?: string;
 }
 
@@ -58,18 +58,20 @@ export function ContactSection() {
                 <p className="text-sm mb-1">{contactItem.Content_Desc2}</p>
                 {contactItem.Content_Desc3 && <p className="text-sm mb-1">{contactItem.Content_Desc3}</p>}
                 {contactItem.Content_Desc4 && <p className="text-sm font-bold mb-1">{contactItem.Content_Desc4}</p>}
-                <Link href={contactItem.Content_Link}>
-                  <Button
-                    size="sm"
-                    className="rounded-full border-black border-[1.5px] text-black bg-white mt-2 
-                               transition-all duration-300 ease-out overflow-hidden relative group"
-                  >
-                    <span className="absolute inset-0 w-0  bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
-                    <span className="relative z-10 flex hover:text-white items-center gap-2">
-                      {contactItem.Content_Button} <ArrowRight className="w-4 h-4" />
-                    </span>
-                  </Button>
-                </Link>
+                {contactItem.Content_Link && (
+                  <Link href={contactItem.Content_Link || "#"}>
+                    <Button
+                      size="sm"
+                      className="rounded-full border-black border-[1.5px] text-black bg-white mt-2 
+                                transition-all duration-300 ease-out overflow-hidden relative group"
+                    >
+                      <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+                      <span className="relative z-10 flex hover:text-white items-center gap-2">
+                        {contactItem.Content_Button} <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </Button>
+                  </Link>
+                )}
               </div>
               <div className="border-l border-gray-300"></div>
               <div className="flex-1">
@@ -78,18 +80,20 @@ export function ContactSection() {
                 <p className="text-sm mb-1">{contactItem.Content2_Desc2}</p>
                 {contactItem.Content2_Desc3 && <p className="text-sm mb-1">{contactItem.Content2_Desc3}</p>}
                 {contactItem.Content2_Desc4 && <p className="text-sm font-bold mb-1">{contactItem.Content2_Desc4}</p>}
-                <Link href={contactItem.Content2_Link}>
-                  <Button
-                    size="sm"
-                    className="rounded-full border-black border-[1.5px] text-black bg-white mt-2 
-                               transition-all duration-300 ease-out overflow-hidden relative group"
-                  >
-                    <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
-                    <span className="relative z-10 flex hover:text-white items-center gap-2">
-                      {contactItem.content2_Button} <ArrowRight className="w-4 h-4" />
-                    </span>
-                  </Button>
-                </Link>
+                {contactItem.Content2_Link && (
+                  <Link href={contactItem.Content2_Link || "#"}>
+                    <Button
+                      size="sm"
+                      className="rounded-full border-black border-[1.5px] text-black bg-white mt-2 
+                                transition-all duration-300 ease-out overflow-hidden relative group"
+                    >
+                      <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+                      <span className="relative z-10 flex hover:text-white items-center gap-2">
+                        {contactItem.content2_Button} <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </Button>
+                  </Link>
+                )}
               </div>
             </div>
           ) : (

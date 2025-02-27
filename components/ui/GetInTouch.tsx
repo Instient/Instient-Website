@@ -44,10 +44,12 @@ export default function GetInTouch({ isOpen, onClose }: GetInTouchProps): JSX.El
         });
         const data = await response.json();
         if (response.ok) {
-          const uniqueIndustries = [...new Set(data.data.map((item: any) => item.industry))];
-          const uniquePurposes = [...new Set(data.data.map((item: any) => item.purpose))];
-          setIndustries(uniqueIndustries);
-          setPurposes(uniquePurposes);
+          const uniqueIndustries = [...new Set(data.data.map((item: any) => item.industry as string))];
+          const uniquePurposes = [...new Set(data.data.map((item: any) => item.purpose as string))];
+          
+          setIndustries(uniqueIndustries as string[]);
+          setPurposes(uniquePurposes as string[]);
+          
         } else {
           console.error("Error fetching options:", data);
         }

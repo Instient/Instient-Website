@@ -25,7 +25,7 @@ export default async function LifeAtInstientPage() {
   const lifeAtInstientData = await fetchLifeAtInstientPageData();
 
   // If no data or malformed data, show an error message
-  if (!lifeAtInstientData || !lifeAtInstientData.Title || !lifeAtInstientData.header || !lifeAtInstientData.Description) {
+  if (!lifeAtInstientData || !lifeAtInstientData.Title || !lifeAtInstientData.Description) {
     return <p className="text-center mt-20">Some required fields are missing or the page does not exist.</p>;
   }
 
@@ -62,25 +62,33 @@ export default async function LifeAtInstientPage() {
       <Section contentTitle={content1} contentAnswer={content1_answer} />
       <Section contentTitle={content2} contentAnswer={content2_answer} />
 
-      <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-10 mb-10">
-        <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">Conclusion</h2>
-        <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-10 sm:mt-2 w-[90%] sm:w-[60%]">
-          <p className="text-xl px-3 sm:p-0 font-ubuntu">{conclusion}</p>
-        </div>
-      </div>
-
       <Footer />
     </main>
   );
 }
 
-function Section({ contentTitle, contentAnswer }: { contentTitle: string; contentAnswer: string }) {
+function Section({ contentTitle, contentAnswer }: { contentTitle: string; contentAnswer: any[] }) {
   return (
     <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-10 mb-10">
       <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">{contentTitle}</h2>
       <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-10 sm:mt-2 w-[90%] sm:w-[60%]">
-        <p className="text-xl px-3 sm:p-0 font-ubuntu">{contentAnswer}</p>
+        {contentAnswer.map((block, index) => {
+          if (block.type === "paragraph") {
+            return <p key={index} className="text-2xl px-3 sm:p-0 font-ubuntu">{block.children.map(child => child.text).join("")}</p>;
+          }
+          if (block.type === "list" && block.children) {
+            return (
+              <ul key={index} className="list-disc pl-6">
+                {block.children.map((listItem, i) => (
+                  <li key={i}>{listItem.children.map(child => child.text).join("")}</li>
+                ))}
+              </ul>
+            );
+          }
+          return null; // Ignore unsupported content types
+        })}
       </div>
     </div>
   );
 }
+

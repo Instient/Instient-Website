@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 
 export function Footer() {
-  const [hoveredIcon, setHoveredIcon] = useState(null);
+  const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState(0);
 
   const footerRoutes = [
@@ -78,7 +78,7 @@ export function Footer() {
       {/* Bottom Section - Social Media */}
       <div className="text-black bg-gray-50 py-5 px-6 text-left font-ubuntu">
         <div className="flex flex-col lg:flex-row justify-between text-base relative">
-          <p>&copy; Instient PVT LTD, 2025</p>
+          <p>&copy; Instient, 2025. All rights reserved.</p>
           <div className="relative flex flex-col items-center">
             {hoveredIcon && (
               <div
@@ -92,7 +92,7 @@ export function Footer() {
               {socialLinks.map(({ name, icon: Icon, href, isImage }) => (
                 <Link key={name} href={href} target="_blank" aria-label={name}>
                   <div
-                    className="p-2 bg-gray-200 rounded-full hover:bg-gray-400 transition-all duration-300 transform hover:scale-110 relative"
+                    className="p-2 bg-gray-200 rounded-full hover:bg-blue-400 transition-all duration-300 transform hover:scale-110 relative"
                     onMouseEnter={(e) => {
                       setHoveredIcon(name);
                       setTooltipPosition(e.currentTarget.offsetLeft + e.currentTarget.offsetWidth / 2 - 33);

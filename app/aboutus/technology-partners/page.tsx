@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Footer } from "@/components/ui/footer";
 import Image from 'next/image'; // Importing Image
+import TechnologyPartnerSlider from "@/components/ui/TechnologyPartnerSlider";
+import PartnersCard from "@/components/ui/PartnersCard";
 async function fetchTechnologyPartnerPageData() {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
@@ -76,31 +78,11 @@ export default async function TechnologyPartnerPage() {
         <p className="text-2xl px-6 font-ubuntu">{Description}</p>
       </div>
 
-      <Section contentTitle="Partnership Vision" contentAnswer={partnershipVision} />
-      <Section contentTitle="Technology Solutions" contentAnswer={technologySolutions} />
-      <Section contentTitle="Collaborations" contentAnswer={collaborations} />
-      <Section contentTitle="Future Goals" contentAnswer={futureGoals} />
+      <TechnologyPartnerSlider/>
 
+      <PartnersCard/>
       <Footer />
     </main>
   );
 }
 
-function Section({
-  contentTitle,
-  contentAnswer,
-}: {
-  contentTitle: string;
-  contentAnswer: string;
-}) {
-  return (
-    <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-10 mb-10">
-      <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">
-        {contentTitle}
-      </h2>
-      <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-10 sm:mt-2 w-[90%] sm:w-[60%]">
-        <p className="text-xl px-3 sm:p-0 font-ubuntu">{contentAnswer}</p>
-      </div>
-    </div>
-  );
-}
