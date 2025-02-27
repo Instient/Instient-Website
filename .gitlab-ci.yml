@@ -1,7 +1,15 @@
 stages:
-  - build
+  - deploy
 
-build:
-  stage: build
+
+deploy_dev:
+  stage: deploy
+  image: linuxserver/openssh-server
   script:
-    - echo "Building the project"
+    - chmod og= $ID_RSA
+    - ssh -p $SSH_PORT_DEV -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "./frontend-pull-deploy-script.sh"
+
+  only:
+    refs:
+      - dev
+
