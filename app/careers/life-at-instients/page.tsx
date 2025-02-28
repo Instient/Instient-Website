@@ -74,11 +74,11 @@ function Section({ contentTitle, contentAnswer }: { contentTitle: string; conten
       <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-10 sm:mt-2 w-[90%] sm:w-[60%]">
         {contentAnswer.map((block, index) => {
           if (block.type === "paragraph") {
-            return <p key={index} className="text-2xl px-3 sm:p-0 font-ubuntu">{block.children.map(child => child.text).join("")}</p>;
+            return <p key={index} className="text-2xl  px-3 sm:p-0 font-ubuntu mb-6">{block.children.map(child => child.text).join("")}</p>;
           }
           if (block.type === "list" && block.children) {
             return (
-              <ul key={index} className="list-disc pl-6">
+              <ul key={index} className="list-disc pl-6 mb-6">
                 {block.children.map((listItem, i) => (
                   <li key={i}>{listItem.children.map(child => child.text).join("")}</li>
                 ))}

@@ -27,8 +27,7 @@ export default async function ManagementAndGovernancePage() {
   // If no data or malformed data, show an error message
   if (
     !managementAndGovernanceData ||
-    !managementAndGovernanceData.Title ||
-    !managementAndGovernanceData.Description
+    !managementAndGovernanceData.Title 
   ) {
     return (
       <p className="text-center mt-20">
@@ -40,10 +39,8 @@ export default async function ManagementAndGovernancePage() {
   // Destructure attributes safely
   const {
     Title,
-    Description,
-    leadershipStructure,
     governanceModel,
-    conclusion,
+    managementModel,
     Image: { url } = {},
   } = managementAndGovernanceData;
 
@@ -59,7 +56,7 @@ export default async function ManagementAndGovernancePage() {
               className="object-cover object-center -z-10"
           />
         
-        <div className="my-64 sm:my-64">
+        <div className="my-64 sm:my-64 ">
           <Card className="lg:w-[600px] sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu">
             <CardHeader>
               <CardTitle className="text-base font-light"></CardTitle>
@@ -73,21 +70,8 @@ export default async function ManagementAndGovernancePage() {
         </div>
       </div>
 
-      <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-44 sm:mt-24 w-[90%] sm:w-[60%]">
-        <p className="text-2xl px-6 font-ubuntu">{Description}</p>
-      </div>
-
-      <Section contentTitle="Leadership Structure" contentAnswer={leadershipStructure} />
-      <Section contentTitle="Governance Model" contentAnswer={governanceModel} />
-
-      <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-10 mb-10">
-        <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">
-          Conclusion
-        </h2>
-        <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-10 sm:mt-2 w-[90%] sm:w-[60%]">
-          <p className="text-xl px-3 sm:p-0 font-ubuntu">{conclusion}</p>
-        </div>
-      </div>
+      <Section contentTitle="Management" contentAnswer={managementModel} />
+      <Section contentTitle="Governance" contentAnswer={governanceModel} />
 
       <Footer />
     </main>
@@ -102,7 +86,7 @@ function Section({
   contentAnswer: string;
 }) {
   return (
-    <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-10 mb-10">
+    <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-20 sm:mb-10 mb-10">
       <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">
         {contentTitle}
       </h2>
