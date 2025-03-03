@@ -130,7 +130,7 @@ export default function About() {
           </div>
     </div>
 
-    <div className="flex sm:flex-nowrap flex-wrap justify-start px-2 py-2 sm:gap-52 sm:py-6">
+    {/*<div className="flex sm:flex-nowrap flex-wrap justify-start px-2 py-2 sm:gap-52 sm:py-6">
       <div className="flex flex-col px-6 py-4 w-1/2 sm:w-auto">
         <h1 className="text-6xl font-bold font-ubuntu">{aboutData.Content2_Card1_Number}</h1>
         <hr className="w-8 border-t-2 border-blue-400 my-1" />
@@ -154,7 +154,7 @@ export default function About() {
           <p className="font-ubuntu text-2xl">{aboutData.Content2_Card3_Text}</p>
         </div>
       </div>
-    </div>
+    </div>*/}
 
     <div className="sm:px-6 px-3 py-4 mt-2 sm:mt-10 sm:mb-16 mb-10">
       <div className="py-10 font-ubuntu relative sm:mt-0">

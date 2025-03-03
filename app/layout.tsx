@@ -5,6 +5,7 @@ import { Navbar } from "@/components/ui/Navbar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import Head from "next/head";  // Import Head for setting title and favicon
 import { Toaster } from "@/components/ui/toaster";
+import ClientLayout from "@/components/ui/client-layout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,7 +45,8 @@ export default function RootLayout({
         </div>
         
         {/* Main content should touch the Navbar */}
-        <main className="relative mt-0">{children}</main>
+        
+        <main className="relative mt-0"><ClientLayout>{children}</ClientLayout></main>
       </body>
     </html>
   );

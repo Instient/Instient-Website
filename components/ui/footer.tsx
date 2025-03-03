@@ -39,7 +39,7 @@ export function Footer() {
       {/* Middle Section - Info & Links */}
       <div className="bg-gray-50 text-gray-800 py-6 px-6 text-left lg:text-left">
         <div className="container mx-auto flex flex-col lg:flex-row justify-start lg:justify-between items-start">
-          <Link href="/" onClick={() => window.scrollTo(0, 0)}>
+          <Link href="/" >
             <Image
               src="/Instient Logo.svg"
               alt="Logo"
@@ -53,7 +53,7 @@ export function Footer() {
               <ul className="text-base">
                 {footerRoutes.map((route) => (
                   <li key={route.href} className="mt-2 mb-2">
-                    <Link href={route.href} onClick={() => window.scrollTo(0, 0)} className="hover:text-primary transition">
+                    <Link href={route.href}  className="hover:text-primary transition">
                       {route.name}
                     </Link>
                   </li>
