@@ -12,7 +12,7 @@ import CareerPathBreadcrumb from "./CareerPathBreadcrumb";
 import { useState } from "react";
 import GetInTouch from "./GetInTouch";
 
-const routeMap = {
+const routeMap: Record<string, string> = {
   services: "Services",
   casestudies: "Case Studies",
   careers: "Careers",
@@ -47,7 +47,9 @@ export default function Breadcrumb() {
       <nav className="bg-gray-100 shadow-md w-full px-8 py-3 flex justify-between items-center">
         {/* Desktop View */}
         <div className="hidden md:flex items-center space-x-2 text-base font-ubuntu text-black max-w-7xl">
-          <Link href="/" className="hover:text-gray-700 font-medium">Home</Link>
+          <Link href="/" className="hover:text-gray-700 font-medium">
+            Home
+          </Link>
           {segments.length > 0 && <ChevronRight className="w-5 h-5" />}
           {segments.map((segment, index) => {
             const href = "/" + segments.slice(0, index + 1).join("/");
@@ -72,7 +74,10 @@ export default function Breadcrumb() {
 
         {/* Mobile View */}
         <div className="md:hidden flex items-center w-full justify-between">
-          <Link href={previousPage} className="flex items-center text-base sm:text-sm font-medium text-black">
+          <Link
+            href={previousPage}
+            className="flex items-center text-base sm:text-sm font-medium text-black"
+          >
             <ChevronLeft className="w-5 h-5" />
             {previousLabel}
           </Link>
@@ -99,8 +104,8 @@ export default function Breadcrumb() {
   );
 }
 
-function formatBreadcrumbText(segment) {
-  const exceptions = {
+function formatBreadcrumbText(segment: string): string {
+  const exceptions: Record<string, string> = {
     "job-openings": "Experienced",
     internships: "Early Program",
   };

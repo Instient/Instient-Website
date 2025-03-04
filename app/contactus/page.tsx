@@ -5,7 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import ContactSection from "@/components/ui/ContactSection";
 import { Footer } from "@/components/ui/footer";
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -32,6 +31,7 @@ export default function Contact() {
 
   useEffect(() => {
     const fetchContactData = async () => {
+      if (!apiToken) return;
       try {
         const response = await fetch("https://dev-api.instient.ai/api/contactpage?populate=*", {
           headers: {
@@ -49,7 +49,7 @@ export default function Contact() {
     };
 
     fetchContactData();
-  }, [pathname]);
+  }, [pathname, apiToken]);
 
   if (!contactData) {
     return (
@@ -89,7 +89,7 @@ export default function Contact() {
         </div>
       </div>
 
-      <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-32 sm:mt-24 sm:w-[60%]">
+      <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-32 sm:mt-24  w-[90%] sm:w-[60%]">
         <p className="text-2xl px-6 font-ubuntu sm:hidden">{contactData.Description_mobile}</p>
         <p className="text-2xl px-6 font-ubuntu hidden sm:block">{contactData.Description_web}</p>
       </div>

@@ -41,6 +41,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchHomeData = async () => {
+      if (!apiToken) return;
       try {
         const response = await fetch("https://dev-api.instient.ai/api/homepage?populate=*", {
           headers: {
@@ -58,7 +59,7 @@ export default function Home() {
     };
 
     fetchHomeData();
-  }, [pathname]);
+  }, [pathname,apiToken]);
 
   if (!homeData) {
     return (

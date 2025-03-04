@@ -9,9 +9,13 @@ interface Subpage {
   href: string;
 }
 
-async function fetchCaseStudies() {
+interface CaseStudy {
+    Title: string;
+    slug: string;
+}
+
+async function fetchCaseStudies(): Promise<Subpage[]> {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
-  
 
   const response = await fetch("https://dev-api.instient.ai/api/casestudies?populate=*", {
     headers: {
@@ -28,7 +32,7 @@ async function fetchCaseStudies() {
   const data = await response.json();
 
   return (
-    data?.data?.map((caseStudy: any) => ({
+    data?.data?.map((caseStudy: CaseStudy) => ({
       name: caseStudy.Title,
       href: `/casestudies/${caseStudy.slug}`,
     })) || []

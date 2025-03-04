@@ -22,6 +22,8 @@ export default function InternshipPage() {
 
   useEffect(() => {
     const fetchInternshipData = async () => {
+      if (!apiToken) return; 
+
       try {
         const response = await fetch("https://dev-api.instient.ai/api/internshipspage?populate=*", {
           headers: {
@@ -39,7 +41,7 @@ export default function InternshipPage() {
     };
 
     fetchInternshipData();
-  }, []);
+  }, [apiToken]);
 
   if (!internshipData) {
     return (

@@ -97,7 +97,7 @@ function Section({ contentTitle, contentAnswer }: SectionProps) {
         {contentAnswer?.map((block: TextBlock, index: number) => {
           if (block.type === "paragraph") {
             return (
-              <p key={index} className="text-2xl px-3 sm:p-0 font-ubuntu mb-6">
+              <p key={index} className="text-xl px-3 sm:p-0 font-ubuntu mb-6">
                 {block.children?.map((child: TextChild) => child.text).join("")}
               </p>
             );

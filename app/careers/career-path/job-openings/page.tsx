@@ -21,6 +21,7 @@ export default function JobOpeningsPage() {
 
   useEffect(() => {
     const fetchJobData = async () => {
+      if (!apiToken) return;
       try {
         const response = await fetch("https://dev-api.instient.ai/api/jobopeningpage?populate=*", {
           headers: {
@@ -39,7 +40,7 @@ export default function JobOpeningsPage() {
     };
   
     fetchJobData();
-  }, []);
+  }, [apiToken]);
   
 
   if (!jobData) {

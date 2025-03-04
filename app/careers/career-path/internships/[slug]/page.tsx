@@ -23,9 +23,22 @@ async function fetchInternshipData(slug: string) {
   return data?.data?.[0] ?? null;
 }
 
+interface InternshipData {
+  Title: string;
+  location: string;
+  Description: string;
+  type: string;
+  role?: string;
+  responsibilty?: string;
+  skills?: string;
+  Qulaification?: string;
+  Image_Thumbnail?: { url?: string };
+}
+
+
 export default function InternshipSlugPage({ params }: { params: Promise<{ slug: string }> }) {
   const [slug, setSlug] = useState<string | null>(null);
-  const [internshipData, setInternshipData] = useState<any>(null);
+  const [internshipData, setInternshipData] = useState<InternshipData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   
 
@@ -70,12 +83,14 @@ export default function InternshipSlugPage({ params }: { params: Promise<{ slug:
     location,
     Description,
     type,
-    role,
-    responsibilty,
-    skills,
-    Qulaification,
-    Image_Thumbnail: { url } = {},
+    role = null,
+    responsibilty = null,
+    skills = null,
+    Qulaification = null,
+    Image_Thumbnail,
   } = internshipData;
+  
+  const url = Image_Thumbnail?.url ?? null;  
 
   return (
     <main>

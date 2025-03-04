@@ -21,7 +21,7 @@ async function fetchCaseStudyData(slug: string) {
   return data?.data?.[0] ?? null;
 }
 
-export default async function CaseStudySlugPage({ params }: { params: { slug: string } }) {
+export default async function CaseStudySlugPage({ params }: { params:Promise< { slug: string }> }) {
   const { slug } = await params;
 
   const caseStudyData = await fetchCaseStudyData(slug);

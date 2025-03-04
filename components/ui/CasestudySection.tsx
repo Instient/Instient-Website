@@ -19,6 +19,7 @@ export function CaseStudySection() {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   useEffect(() => {
+    if (!apiToken) return;
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${apiToken}`);
 
@@ -34,7 +35,7 @@ export function CaseStudySection() {
         setCaseStudyData(result.data);
       })
       .catch((error) => console.error("Error fetching case study data:", error));
-  }, []);
+  }, [apiToken]);
 
   const handleShowMore = () => {
     setVisibleCaseStudies(caseStudyData.length);

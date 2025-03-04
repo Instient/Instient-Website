@@ -19,7 +19,7 @@ async function fetchServiceData(slug: string) {
   return data?.data?.[0] ?? null;
 }
 
-export default async function ServiceSlugPage({ params }: { params: { slug: string } }) {
+export default async function ServiceSlugPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
   const serviceData  = await fetchServiceData(slug);
@@ -143,13 +143,13 @@ interface CardData {
   description: string;
 }
 
-function extractCardData(data: Record<string, any>, keyPrefix: string): CardData[] {
+function extractCardData(data: { [key: string]: string | undefined }, keyPrefix: string): CardData[] {
   const cards: CardData[] = [];
   let index = 1;
 
   while (data[`${keyPrefix}${index}_Title`]) {
     cards.push({
-      title: data[`${keyPrefix}${index}_Title`],
+      title: data[`${keyPrefix}${index}_Title`] || "",
       content: data[`${keyPrefix}${index}_Description`] || "",
       description: data[`${keyPrefix}${index}_Content`] || "",
     });
@@ -158,3 +158,4 @@ function extractCardData(data: Record<string, any>, keyPrefix: string): CardData
 
   return cards;
 }
+

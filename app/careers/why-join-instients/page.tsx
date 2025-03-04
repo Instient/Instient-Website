@@ -27,7 +27,6 @@ export default async function WhyJoinInstientPage() {
 
   const {
     Title,
-    header,
     content1,
     content1_answer,
     content2,
@@ -55,7 +54,6 @@ export default async function WhyJoinInstientPage() {
         <div className="my-64 sm:my-64">
           <Card className="lg:w-[600px] sm:w-[650px] bg-gradient-to-b from-[#3c83c1] to-[#459ae5] text-white font-ubuntu">
             <CardHeader>
-              <CardTitle className="text-base font-light">{header}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-4xl py-6 sm:py-0 mb-12 sm:mb-24 font-ubuntu font-medium">

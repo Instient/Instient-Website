@@ -1,10 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+
+import { Card, CardContent } from "@/components/ui/card";
 import { CareerPathSection } from "@/components/ui/CareerPathSection";
 import { Footer } from "@/components/ui/footer";
-import { ArrowRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -26,6 +25,7 @@ export default function CareerPath() {
   
     useEffect(() => {
       const fetchCareerPathData = async () => {
+        if (!apiToken) return;
         try {
           const response = await fetch("https://dev-api.instient.ai/api/careerpathpage?populate=*", {
             headers: {
@@ -43,7 +43,7 @@ export default function CareerPath() {
       };
   
       fetchCareerPathData();
-    }, [pathname]);
+    }, [pathname, apiToken]);
   
     if (!careerPathData) {
       return (

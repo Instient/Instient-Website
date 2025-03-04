@@ -23,6 +23,7 @@ export default function CaseStudies() {
 
   useEffect(() => {
     const fetchCaseStudyData = async () => {
+      if (!apiToken) return;
       try {
         const response = await fetch("https://dev-api.instient.ai/api/casestudypage?populate=*", {
           headers: {
@@ -40,7 +41,7 @@ export default function CaseStudies() {
     };
 
     fetchCaseStudyData();
-  }, [pathname]);
+  }, [pathname, apiToken]);
 
   if (!caseStudyData) {
     return (

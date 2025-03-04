@@ -41,10 +41,6 @@ export default async function TechnologyPartnerPage() {
   const {
     Title,
     Description,
-    partnershipVision,
-    technologySolutions,
-    collaborations,
-    futureGoals,
     Image: { url } = {},
   } = technologyPartnerData;
 

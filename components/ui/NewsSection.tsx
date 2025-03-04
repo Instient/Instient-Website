@@ -20,6 +20,7 @@ export function NewsSection() {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   useEffect(() => {
+    if (!apiToken) return;
     const myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
@@ -38,7 +39,7 @@ export function NewsSection() {
         setNewsData(result.data);
       })
       .catch((error) => console.error("Error fetching news data:", error));
-  }, []);
+  }, [apiToken]);
 
   const handleShowMore = () => {
     setVisibleNews(newsData.length);

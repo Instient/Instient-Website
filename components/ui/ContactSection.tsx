@@ -28,6 +28,7 @@ export function ContactSection() {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   useEffect(() => {
+    if (!apiToken) return;
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${apiToken}`);
 
@@ -43,7 +44,7 @@ export function ContactSection() {
         setContactData(result.data);
       })
       .catch((error) => console.error("Error fetching contact data:", error));
-  }, []);
+  }, [apiToken]);
 
   return (
     <div className="px-6 py-4 mt-10 sm:mt-10">

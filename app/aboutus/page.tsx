@@ -48,6 +48,7 @@ export default function About() {
   
     useEffect(() => {
       const fetchAboutData = async () => {
+        if (!apiToken) return;
         try {
           const response = await fetch("https://dev-api.instient.ai/api/aboutpage?populate=*", {
             headers: {
@@ -65,7 +66,7 @@ export default function About() {
       };
   
       fetchAboutData();
-    }, [pathname]);
+    }, [pathname, apiToken]);
   
     if (!aboutData) {
       return (

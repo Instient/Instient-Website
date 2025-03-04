@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent} from "@/components/ui/card";
 import { MeetOurPeopleSection } from "@/components/ui/MeetOurPeopleSection";
 import { Footer } from "@/components/ui/footer";
 import { usePathname } from "next/navigation";
@@ -23,6 +23,7 @@ export default function MeetOurPeople() {
 
   useEffect(() => {
     const fetchMeetOurPeopleData = async () => {
+      if (!apiToken) return;
       try {
         const response = await fetch("https://dev-api.instient.ai/api/meetourpeoplepage?populate=*", {
           headers: {
@@ -40,7 +41,7 @@ export default function MeetOurPeople() {
     };
 
     fetchMeetOurPeopleData();
-  }, [pathname]);
+  }, [pathname, apiToken]);
 
   if (!meetOurPeopleData) {
     return (

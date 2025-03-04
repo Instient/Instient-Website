@@ -24,6 +24,7 @@ export default function News() {
 
   useEffect(() => {
     const fetchNewsData = async () => {
+      if (!apiToken) return;
       try {
         const response = await fetch("https://dev-api.instient.ai/api/newspage?populate=*", {
           headers: {
@@ -41,7 +42,7 @@ export default function News() {
     };
 
     fetchNewsData();
-  }, [pathname]);
+  }, [pathname, apiToken]);
 
   if (!newsData) {
     return (

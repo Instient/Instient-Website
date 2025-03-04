@@ -3,7 +3,18 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-async function fetchPartners() {
+// Define the interface for the partner object
+interface Partner {
+  logo?: { 
+    url?: string;
+    formats?: { thumbnail?: { url?: string } };
+  };
+  title: string;
+  description: string;
+}
+
+// Function to fetch partners from the API
+async function fetchPartners(): Promise<Partner[]> {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
   const response = await fetch('https://dev-api.instient.ai/api/globalpartners?populate=*', {
     headers: { Authorization: `Bearer ${apiToken}` },
@@ -14,7 +25,7 @@ async function fetchPartners() {
 }
 
 export default function PartnersCard() {
-  const [partners, setPartners] = useState([]);
+  const [partners, setPartners] = useState<Partner[]>([]);
 
   useEffect(() => {
     async function loadPartners() {
@@ -28,7 +39,7 @@ export default function PartnersCard() {
 
   return (
     <section className="container mx-auto py-12">
-        <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6 mb-5">Our global partners</h2>
+      <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6 mb-5">Our Global Partners</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {partners.map((partner, index) => { 
           const imageUrl = partner.logo?.url || partner.logo?.formats?.thumbnail?.url;
@@ -36,7 +47,7 @@ export default function PartnersCard() {
 
           return (
             <div key={index} className="flex items-center mx-6 bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
-              <div className="w-1/3  flex justify-center items-center p-4">
+              <div className="w-1/3 flex justify-center items-center p-4">
                 {imageUrl ? (
                   <Image
                     src={fullImageUrl}

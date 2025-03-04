@@ -22,7 +22,9 @@ export function ServiceSection() {
 
   // Fetch service data from API
   useEffect(() => {
+    if (!apiToken) return;
     async function fetchServices() {
+      
       try {
         const response = await fetch("https://dev-api.instient.ai/api/service-instients?populate=*", {
           headers: {
@@ -44,7 +46,7 @@ export function ServiceSection() {
     }
 
     fetchServices();
-  }, []);
+  }, [apiToken]);
 
   return (
     

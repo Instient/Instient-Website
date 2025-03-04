@@ -9,7 +9,12 @@ interface Subpage {
   href: string;
 }
 
-async function fetchNews() {
+interface NewsItem {
+    Title: string;
+    slug: string;
+}
+
+async function fetchNews(): Promise<Subpage[]> {
   const apiToken = process.env.NEXT_PUBLIC_API_TOKEN;
 
   const response = await fetch("https://dev-api.instient.ai/api/news-instients?populate=*", {
@@ -27,7 +32,7 @@ async function fetchNews() {
   const data = await response.json();
 
   return (
-    data?.data?.map((news: any) => ({
+    data?.data?.map((news: NewsItem) => ({
       name: news.Title,
       href: `/news/${news.slug}`,
     })) || []

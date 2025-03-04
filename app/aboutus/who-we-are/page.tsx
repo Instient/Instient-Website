@@ -23,7 +23,7 @@ export default async function WhoWeArePage() {
   }
 
   const {
-    Title, Description, mission, vision, calltoaction, tagline,
+    Title, Description, mission, vision,
     Image: { url: mainImageUrl } = {},
     Banner_Title, Banner_Description, Banner_Button,
     Banner_Image: { url: bannerImageUrl } = {},
@@ -49,9 +49,8 @@ export default async function WhoWeArePage() {
         <p className="text-2xl px-6 font-ubuntu">{Description}</p>
       </div>
 
-      <Section contentTitle="Mission" contentAnswer={mission} />
-      <Section contentTitle="Vision" contentAnswer={vision} />
-      <Section contentTitle="Call to Action" contentAnswer={calltoaction} tagline={tagline}/>
+      <Section contentTitle="Mission" contentAnswer={mission}  />
+      <Section contentTitle="Vision" contentAnswer={vision}   />
       
 
       <section className="bg-gray-600 text-white mb-10">
@@ -80,13 +79,12 @@ export default async function WhoWeArePage() {
   );
 }
 
-function Section({ contentTitle, contentAnswer,tagline }: { contentTitle: string; contentAnswer: string; tagline: string; }) {
+function Section({ contentTitle, contentAnswer }: { contentTitle: string; contentAnswer: string }) {
   return (
     <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-10 mb-10">
       <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">{contentTitle}</h2>
       <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-10 sm:mt-2 w-[90%] sm:w-[60%]">
         <p className="text-xl px-3 sm:p-0 font-ubuntu">{contentAnswer}</p>
-        <p className="text-xl px-3 sm:p-0 font-ubuntu mt-4">{tagline}</p>
       </div>
     </div>
   );

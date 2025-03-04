@@ -21,7 +21,7 @@ async function fetchNewsData(slug: string) {
   return data?.data?.[0] ?? null;
 }
 
-export default async function NewsSlugPage({ params }: { params: { slug: string } }) {
+export default async function NewsSlugPage({ params }: { params: Promise<{ slug: string }>  }) {
   const { slug } = await params; // Ensure `params` is awaited
 
   const newsData = await fetchNewsData(slug);

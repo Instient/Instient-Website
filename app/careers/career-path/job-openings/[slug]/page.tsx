@@ -23,9 +23,23 @@ async function fetchJobData(slug: string) {
   return data?.data?.[0] ?? null;
 }
 
+interface JobData {
+  Title: string;
+  location: string;
+  Description: string;
+  type: string;
+  role?: string;
+  responsibilty?: string;
+  skills?: string;
+  Qulaification?: string;
+  Image_Thumbnail?: {
+    url: string;
+  };
+}
+
 export default function JobOpeningSlugPage({ params }: { params: Promise<{ slug: string }> }) {
   const [slug, setSlug] = useState<string | null>(null);
-  const [jobData, setJobData] = useState<any>(null);
+  const [jobData, setJobData] = useState<JobData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -69,13 +83,13 @@ export default function JobOpeningSlugPage({ params }: { params: Promise<{ slug:
     location,
     Description,
     type,
-    role,
-    responsibilty,
-    skills,
-    Qulaification,
+    role = null,
+    responsibilty = null,
+    skills = null,
+    Qulaification = null,
     Image_Thumbnail: { url } = {},
   } = jobData;
-
+  
   return (
     <main>
       <div className="w-full h-[425px] sm:h-[450px] p-6 font-ubuntu relative">
@@ -109,11 +123,11 @@ export default function JobOpeningSlugPage({ params }: { params: Promise<{ slug:
         <p className="text-lg px-6 font-ubuntu text-justify mt-4">{Description}</p>
       </div>
 
-      <JobSection title="About the Role" content={role} isRole />
-      <JobSection title="Key Responsibilities" content={responsibilty} />
-      <JobSection title="Required Skills" content={skills} />
-      <JobSection title="Preferred Qualifications" content={Qulaification} />
-
+      <JobSection title="About the Role" content={role ?? null} isRole />
+      <JobSection title="Key Responsibilities" content={responsibilty ?? null} />
+      <JobSection title="Required Skills" content={skills ?? null} />
+      <JobSection title="Preferred Qualifications" content={Qulaification ?? null} />
+      
       <div className="px-6 text-center sm:text-left sm:px-12 mt-12 mb-10">
         <button
               className="bg-white border-black text-black rounded-full border-[1.5px] flex items-center p-4 gap-1 transition-all duration-300 ease-out overflow-hidden relative group"

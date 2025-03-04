@@ -24,6 +24,7 @@ export default function Services() {
 
   useEffect(() => {
     const fetchServiceData = async () => {
+      if (!apiToken) return;
       try {
         const response = await fetch("https://dev-api.instient.ai/api/servicepage?populate=*", {
           headers: {
@@ -41,7 +42,7 @@ export default function Services() {
     };
 
     fetchServiceData();
-  }, [pathname]);
+  }, [pathname,apiToken]);
 
   if (!serviceData) {
     return (
