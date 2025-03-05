@@ -26,7 +26,6 @@ async function fetchInternshipData(slug: string) {
 interface InternshipData {
   Title: string;
   location: string;
-  Description: string;
   type: string;
   role?: string;
   responsibilty?: string;
@@ -74,14 +73,13 @@ export default function InternshipSlugPage({ params }: { params: Promise<{ slug:
     )
   }
 
-  if (!internshipData || !internshipData.Title || !internshipData.Description) {
+  if (!internshipData || !internshipData.Title ) {
     return <p className="text-center mt-20">This internship does not exist or is missing required fields.</p>;
   }
 
   const {
     Title,
     location,
-    Description,
     type,
     role = null,
     responsibilty = null,
@@ -120,8 +118,6 @@ export default function InternshipSlugPage({ params }: { params: Promise<{ slug:
       </div>
 
       <div className="container sm:p-6 py-4 px-3 font-ubuntu mt-32 sm:mt-24 w-[100%] sm:w-[60%]">
-        <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">Internship Description</h2>
-        <p className="text-lg px-6 font-ubuntu text-justify mt-4">{Description}</p>
       </div>
 
       <InternshipSection title="About the Role" content={role} isRole />

@@ -8,7 +8,6 @@ interface JobOpening {
   id: number;
   Title: string;
   location: string;
-  Description: string;
   type: string;
   slug: string;
   Image: {
@@ -63,7 +62,6 @@ export function JobOpeningSection() {
               <CardContent>
                 <h2 className="text-2xl font-bold py-3 font-ubuntu">{job.Title}</h2>
                 <p className="text-sm font-ubuntu text-gray-600">Location: {job.location}</p>
-                <p className="mt-4 text-base font-ubuntu">{job.Description}</p>
                 <p className="mt-4 text-sm font-ubuntu text-blue-600">Type: {job.type}</p>
               </CardContent>
               <CardFooter className="flex justify-end sm:py-6 pb-6">

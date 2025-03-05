@@ -8,7 +8,6 @@ interface MemberData {
   attributes: {
     Name: string;
     Post: string;
-    email: string;
     About: string;
     Education_College1: string;
     Education_Degree1: string;
@@ -80,8 +79,7 @@ export default function MeetOurPeopleSlugPage({ params }: { params: Promise< { s
   const {
     Name,
     Post,
-    email,
-    About,
+    About=[],
     Education_College1,
     Education_Degree1,
     Education_College2,
@@ -107,9 +105,6 @@ export default function MeetOurPeopleSlugPage({ params }: { params: Promise< { s
         <div className="text-white text-center sm:text-left mt-5 sm:mt-12 max-w-lg lg:ml-16 z-20 px-4 sm:px-0">
           <h1 className="text-3xl sm:text-4xl font-bold">{Name}</h1>
           <h2 className="text-xl sm:text-2xl font-semibold mt-2">{Post}</h2>
-          <p className="text-base sm:text-lg mt-2">
-            Email: <a href={`mailto:${email}`} className="text-blue-300 underline">{email}</a>
-          </p>
         </div>
 
         {/* Decorative Blue Background */}
@@ -118,7 +113,12 @@ export default function MeetOurPeopleSlugPage({ params }: { params: Promise< { s
 
       {/* Information Sections */}
       <div className="container mx-auto px-4 sm:px-8 md:px-20 py-12 text-black">
-        <ContentSection title="About" content={About} />
+          <ContentSection
+            title="About"
+            content={Array.isArray(About) ? About : []} // Ensure it's always an array
+          />
+
+
 
 
         {/* Education Section */}
@@ -134,23 +134,47 @@ export default function MeetOurPeopleSlugPage({ params }: { params: Promise< { s
   );
 }
 
-function ContentSection({ title, content }: { title: string; content: string | null }) {
-  if (!content) return null;
+interface ContentBlock {
+  type: "paragraph";
+  children: { text: string }[];
+}
+
+interface ContentSectionProps {
+  title: string;
+  content: ContentBlock[];
+}
+
+function ContentSection({ title, content }: ContentSectionProps) {
+  if (!content || !Array.isArray(content) || content.length === 0) return null;
+
   return (
     <div className="mb-12">
       <h2 className="text-2xl sm:text-3xl font-bold mb-4">{title}</h2>
-      <p className="text-base sm:text-lg leading-relaxed">{content}</p>
+      {content.map((block, index) => {
+        if (block.type === "paragraph" && block.children) {
+          return (
+            <p key={index} className="text-base sm:text-lg font-ubuntu mb-6 leading-relaxed">
+              {block.children.map((child) => child.text).join(" ")}
+            </p>
+          );
+        }
+        return null;
+      })}
       <div className="my-6 border-t-2 border-blue-300"></div>
     </div>
   );
 }
 
+
+
 function EducationItem({ degree, college }: { degree: string | null; college: string | null }) {
   if (!degree || !college) return null;
   return (
     <div className="mb-4">
-      <p className="text-base sm:text-lg font-semibold">{degree}</p>
-      <p className="text-base sm:text-lg">{college}</p>
+      <p className="text-base sm:text-lg font-semibold">{college}</p>
+      <p className="text-base sm:text-lg">{degree}</p>
     </div>
   );
 }
+
+

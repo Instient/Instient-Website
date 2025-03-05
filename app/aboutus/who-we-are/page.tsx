@@ -45,7 +45,7 @@ export default async function WhoWeArePage() {
         </div>
       </div>
 
-      <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-44 sm:mt-24 w-[90%] sm:w-[60%]">
+      <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-24 sm:mt-24 w-[90%] sm:w-[60%]">
         <p className="text-2xl px-6 font-ubuntu">{Description}</p>
       </div>
 
@@ -55,11 +55,11 @@ export default async function WhoWeArePage() {
 
       <section className="bg-gray-600 text-white mb-10">
         <div className="container font-ubuntu mx-auto flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 px-6">
-            <h2 className="text-4xl px-6 font-bold mb-8">{Banner_Title}</h2>
-            <p className="text-lg px-6 text-white mb-28">{Banner_Description}</p>
+          <div className="md:w-1/2 px-6 mt-5">
+            <h2 className="text-4xl px-6 font-bold  mb-8">{Banner_Title}</h2>
+            <p className="text-lg px-6 text-white mb-20">{Banner_Description}</p>
             <Link href="/aboutus/who-we-are/values-and-ethics">
-              <Button className="relative text-white border-white ml-5 border-[1.5px] rounded-full flex items-center font-ubuntu gap-2 overflow-hidden transition-all duration-300 ease-out group">
+              <Button className="relative text-white border-white ml-5 border-[1.5px] rounded-full flex items-center font-ubuntu gap-2 overflow-hidden transition-all duration-300 ease-out group sm:mb-0 mb-5">
                 <span className="absolute inset-0 w-0 bg-gray-400 transition-all duration-300 ease-out group-hover:w-full"></span>
                 <span className="relative z-10 flex items-center gap-2 hover:text-white hover:border-gray-300">
                   {Banner_Button} <ArrowRight className="w-4 h-4" />
@@ -83,7 +83,7 @@ function Section({ contentTitle, contentAnswer }: { contentTitle: string; conten
   return (
     <div className="sm:px-6 px-3 py-4 mt-10 sm:mt-10 sm:mb-10 mb-10">
       <h2 className="text-3xl font-medium font-ubuntu sm:text-left px-6">{contentTitle}</h2>
-      <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-10 sm:mt-2 w-[90%] sm:w-[60%]">
+      <div className="container sm:p-6 py-6 px-3 font-ubuntu mt-12 sm:mt-2 w-[90%] sm:w-[60%]">
         <p className="text-xl px-3 sm:p-0 font-ubuntu">{contentAnswer}</p>
       </div>
     </div>
@@ -112,8 +112,8 @@ async function ExploreInstient() {
 
   return (
     <section className="py-10 font-ubuntu relative">
-      <h2 className="text-3xl font-ubuntu sm:text-left px-12 sm:mb-24">Explore Instient</h2>
-      <div className="flex flex-wrap justify-center px-8 sm:justify-start gap-28 mt-16">
+      <h2 className="text-3xl font-ubuntu sm:text-left px-12  sm:mb-24">Explore Instient</h2>
+      <div className="flex flex-wrap justify-center px-8 sm:justify-start gap-28 mt-24 sm:mt-16">
         {cards.map((card, index) => (
           <div key={index} className="relative mb-14 sm:mb-14 w-full sm:w-[407px]">
             {card.imageUrl && <Image src={`https://dev-api.instient.ai${card.imageUrl}`} alt={card.title} width={407} height={300} className="absolute top-[25%] sm:top-1/3 left-1/2 sm:left-[50%] w-full h-[300px] bg-gray-200 -translate-y-1/2 -translate-x-1/2 z-0 rounded-md" />}
